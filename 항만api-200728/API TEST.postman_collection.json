@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "0a65f170-78bc-4301-9951-9317d56dab52",
+		"name": "API TEST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API1, 디바이스 위치조회",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:7979/location/ae15/location/latest",
+					"host": [
+						"localhost"
+					],
+					"port": "7979",
+					"path": [
+						"location",
+						"ae15",
+						"location",
+						"latest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API2, 주변디바이스 조회",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:7979/location/ae16/location/around?radius=50&term=36000",
+					"host": [
+						"localhost"
+					],
+					"port": "7979",
+					"path": [
+						"location",
+						"ae16",
+						"location",
+						"around"
+					],
+					"query": [
+						{
+							"key": "radius",
+							"value": "50"
+						},
+						{
+							"key": "term",
+							"value": "36000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API3, 영역내 디바이스 조회",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:7979/location/field?firstpoint=[37.408977, 127.127674]&secondpoint=[37.410804, 127.129812]&term=864000",
+					"host": [
+						"localhost"
+					],
+					"port": "7979",
+					"path": [
+						"location",
+						"field"
+					],
+					"query": [
+						{
+							"key": "firstpoint",
+							"value": "[37.408977, 127.127674]"
+						},
+						{
+							"key": "secondpoint",
+							"value": "[37.410804, 127.129812]"
+						},
+						{
+							"key": "term",
+							"value": "864000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API4, 기간별 이동거리 조회",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:7979/location/ae15/location/distance?from=20200723T120000&to=20200724T120000",
+					"host": [
+						"localhost"
+					],
+					"port": "7979",
+					"path": [
+						"location",
+						"ae15",
+						"location",
+						"distance"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "20200723T120000"
+						},
+						{
+							"key": "to",
+							"value": "20200724T120000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API5, 기간별 평균속력 조회",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:7979/location/ae15/location/speed?from=20200723T120000&to=20200724T120000",
+					"host": [
+						"localhost"
+					],
+					"port": "7979",
+					"path": [
+						"location",
+						"ae15",
+						"location",
+						"speed"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "20200723T120000"
+						},
+						{
+							"key": "to",
+							"value": "20200724T120000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API6, 기간별 이동 속력&방향 조회",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:7979/location/ae15/location/direction?from=20200723T120000&to=20200724T120000",
+					"host": [
+						"localhost"
+					],
+					"port": "7979",
+					"path": [
+						"location",
+						"ae15",
+						"location",
+						"direction"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "20200723T120000"
+						},
+						{
+							"key": "to",
+							"value": "20200724T120000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API7, 기간별 이동 경로  조회",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:7979/location/ae15/location/trajectory?from=20200723T120000&to=20200724T120000",
+					"host": [
+						"localhost"
+					],
+					"port": "7979",
+					"path": [
+						"location",
+						"ae15",
+						"location",
+						"trajectory"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "20200723T120000"
+						},
+						{
+							"key": "to",
+							"value": "20200724T120000"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "db72b3c5-73e0-4f40-b930-4755f4703792",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "55f6d682-96cb-4077-b1e4-8d1c32a34af2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

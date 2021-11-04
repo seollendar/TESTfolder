@@ -1,0 +1,22 @@
+{
+  "mobius": {
+    "host": "10.252.73.236",
+    "port": 7579,
+    "cb": "bada"
+  },
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "user": "postgres",
+    "password": "keti123",
+    "database": "spatiodata"
+  },
+  "operation_database": {
+    "host": "203.254.173.5",
+    "port": 5432,
+    "user": "postgres",
+    "password": "Cotlab12#$",
+    "database": "SpatialData"
+  }
+}
+

@@ -1,0 +1,1124 @@
+{
+	"info": {
+		"_postman_id": "0b596208-3399-45a6-b794-e246f56ed58b",
+		"name": "교육용 스크립트_수정",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CSEBase 조회",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "X-M2M-RI",
+						"type": "text",
+						"value": "1234"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "/CB00061"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AE 생성",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;ty=2",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "12345",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "Sdevice001",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:ae\": {\r\n    \"rn\": \"device001\",\r\n    \"api\": \"device001\",\r\n    \"rr\": \"true\"\r\n  }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:19000/~/CB00061/smartharbor/device001",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "19000",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"device001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AE 조회",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "12345",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "S000000000085183855332",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/MyAEtest01",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"MyAEtest01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AE 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "12345",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "S000000000085383797331",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/MyAEtest01",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"MyAEtest01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Container 생성",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=3"
+					},
+					{
+						"key": "X-M2M-RI",
+						"type": "text",
+						"value": "1234"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "Sdevice001"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:cnt\": {\r\n    \"rn\": \"gps\"\r\n  }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:19000/~/CB00061/smartharbor/device001",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "19000",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"device001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Container 조회",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "1234",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "S000000000085183855332",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/MyAEtest01/cnt-mydata",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"MyAEtest01",
+						"cnt-mydata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Container 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "1234",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "S000000000085183855332",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/MyAEtest01/cnt-mydata",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"MyAEtest01",
+						"cnt-mydata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscription 생성",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;ty=23",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "Sdevice02",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "12345",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:sub\": {\r\n        \"enc\": {\r\n            \"net\": [1,3]\r\n        },\r\n        \"nu\": [\r\n            \"http://203.253.128.167:7979/noti_smart_harbor2\"\r\n        ]\r\n    }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/device002/gps",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"device002",
+						"gps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subscription 조회",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "1234",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "Sdevice002",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;ty=23",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/device002/gps/sub-3889",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"device002",
+						"gps",
+						"sub-3889"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subscription 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "1234",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "Sdevice002",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/device002/gps/sub-3886",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"device002",
+						"gps",
+						"sub-3886"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ContentInstance 생성",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=4"
+					},
+					{
+						"key": "X-M2M-RI",
+						"type": "text",
+						"value": "1234"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "Sdevice002"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:cin\": {\r\n    \"cnf\": \"application/json\",\r\n    \"con\": {\r\n            \"serialNo\": 2190,\r\n            \"phoneNo\": \"KR01223468724\",\r\n            \"wtime\": 1474446191000,\r\n            \"lat\": 33.300138,\r\n            \"lng\": 126.585448,\r\n            \"alt\": 252.8,\r\n            \"hdop\": 0.9,\r\n            \"speed\": 1.3,\r\n            \"azimuth\": 291.2,\r\n            \"evSpeed\": 0,\r\n            \"evOdo\": 40858,\r\n            \"evTemp\": 21,\r\n            \"evSoc\": 33,\r\n            \"evEst\": 28\r\n        }\r\n  }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:19000/~/CB00061/smartharbor/device002/gps",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "19000",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"device002",
+						"gps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "167서버에 직접전송",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=4"
+					},
+					{
+						"key": "X-M2M-RI",
+						"type": "text",
+						"value": "1234"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "S000000000085183855332"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:cin\": {\r\n    \"cnf\": \"application/json\",\r\n    \"con\":{\r\n            \"serialNo\": 1,\r\n            \"phoneNo\": \"KR01223468724\",\r\n            \"wtime\": 1474444002000,\r\n            \"lat\": 33.459647,\r\n            \"lng\": 126.561137,\r\n            \"alt\": 277.3,\r\n            \"hdop\": 0.7,\r\n            \"speed\": 0,\r\n            \"azimuth\": 81,\r\n            \"evSpeed\": 0,\r\n            \"evOdo\": 40829,\r\n            \"evTemp\": 21,\r\n            \"evSoc\": 62,\r\n            \"evEst\": 64\r\n          }\r\n  }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "203.253.128.167:7979/noti_smart_harbor2",
+					"host": [
+						"203",
+						"253",
+						"128",
+						"167"
+					],
+					"port": "7979",
+					"path": [
+						"noti_smart_harbor2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "local서버에 직접전송 ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=4"
+					},
+					{
+						"key": "X-M2M-RI",
+						"type": "text",
+						"value": "1234"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "S000000000085183855332",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:cin\": {\r\n    \"cnf\": \"application/json\",\r\n    \"con\":{\r\n            \"serialNo\": 1,\r\n            \"phoneNo\": \"KR01223468724\",\r\n            \"wtime\": 1474444002000,\r\n            \"lat\": 33.459647,\r\n            \"lng\": 126.561137,\r\n            \"alt\": 277.3,\r\n            \"hdop\": 0.7,\r\n            \"speed\": 0,\r\n            \"azimuth\": 81,\r\n            \"evSpeed\": 0,\r\n            \"evOdo\": 40829,\r\n            \"evTemp\": 21,\r\n            \"evSoc\": 62,\r\n            \"evEst\": 64\r\n          }\r\n  }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://203.254.173.175:7980/noti_for_fastdata",
+					"protocol": "http",
+					"host": [
+						"203",
+						"254",
+						"173",
+						"175"
+					],
+					"port": "7980",
+					"path": [
+						"noti_for_fastdata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ContentInstance 생성(씨스존포맷)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=4"
+					},
+					{
+						"key": "X-M2M-RI",
+						"type": "text",
+						"value": "1234"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "Sdevice002"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:cin\": {\r\n    \"cnf\": \"application/json\",\r\n    \"con\": {\r\n            \"serialNo\": 1,\r\n            \"phoneNo\": \"KR01223468724\",\r\n            \"wtime\": 1474444002000,\r\n            \"lat\": 33.459642,\r\n            \"lng\": 126.561131,\r\n            \"alt\": 277.3,\r\n            \"hdop\": 0.7,\r\n            \"speed\": 0,\r\n            \"azimuth\": 81,\r\n            \"evSpeed\": 0,\r\n            \"evOdo\": 40829,\r\n            \"evTemp\": 21,\r\n            \"evSoc\": 62,\r\n            \"evEst\": 64\r\n          }\r\n  }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:19000/~/CB00061/smartharbor/device002/gps",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "19000",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"device002",
+						"gps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ContentInstance 생성 simple 테스트",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:cin\": {\r\n    \"cnf\": \"application/json\",\r\n    \"con\":{\r\n            \"serialNo\": 1,\r\n            \"phoneNo\": \"KR01223468724\",\r\n            \"wtime\": 1474444002000,\r\n            \"lat\": 33.459644,\r\n            \"lng\": 126.561136,\r\n            \"alt\": 277.3,\r\n            \"hdop\": 0.7,\r\n            \"speed\": 0,\r\n            \"azimuth\": 81,\r\n            \"evSpeed\": 0,\r\n            \"evOdo\": 40829,\r\n            \"evTemp\": 21,\r\n            \"evSoc\": 62,\r\n            \"evEst\": 64\r\n          }\r\n  }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "203.254.173.175:7979/end",
+					"host": [
+						"203",
+						"254",
+						"173",
+						"175"
+					],
+					"port": "7979",
+					"path": [
+						"end"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ContentInstance 생성(yt)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=4"
+					},
+					{
+						"key": "X-M2M-RI",
+						"type": "text",
+						"value": "1234"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "S000000000085183855332"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:cin\": {\r\n    \"cnf\": \"application/json\",\r\n    \"con\": \"{\\\"temp\\\":\\\"80\\\",\\\"wind\\\":\\\"30\\\"}\"\r\n  }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:19000/~/CB00061/smartharbor/MyAEtest01/cnt-mydata",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "19000",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"MyAEtest01",
+						"cnt-mydata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ContentInstance 조회(latest) - yt",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "1234",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "Sdevice002",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/device002/gps/latest",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"device002",
+						"gps",
+						"latest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ContentInstance 조회(latest)  - My",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "1234",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "S000000000085183855332",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/MyAEtest01/cnt-mydata",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"MyAEtest01",
+						"cnt-mydata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "node 생성",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;ty=14",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "/CB00061",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "12345",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:nod\": {\r\n    \"ni\": \"node-12345678\",\r\n    \"rn\" : \"device_node2\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AE poa,nodelink 수정",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"value": "S000000000085183855332",
+						"type": "text"
+					},
+					{
+						"key": "X-M2M-RI",
+						"value": "12345",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:ae\": {        \r\n        \"poa\" : \"http://192.168.12.39:12345\",\r\n        \"nl\": \"/CB00061/nod00000000000000453\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/MyAEtest01",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"MyAEtest01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mgmtCmd 수정",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "X-M2M-RI",
+						"type": "text",
+						"value": "1234"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "S000000000085183855332"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"m2m:mgc\": {\r\n\t\t\"exe\": \"true\",\r\n\t\t\"exra\": \"request\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor/mgc-sensorControl",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor",
+						"mgc-sensorControl"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mgmtCmd 생성",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=12"
+					},
+					{
+						"key": "X-M2M-RI",
+						"type": "text",
+						"value": "1234"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "S000000000085183855332"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:mgc\": {\r\n    \"rn\": \"mgc-sensorControl\",\r\n    \"cmt\": \"3\",\r\n    \"ext\": \"node-12345678\"\r\n  }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://n-mas.ntels.com:20001/~/CB00061/smartharbor",
+					"protocol": "http",
+					"host": [
+						"n-mas",
+						"ntels",
+						"com"
+					],
+					"port": "20001",
+					"path": [
+						"~",
+						"CB00061",
+						"smartharbor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "167서버에 직접전송 test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=4"
+					},
+					{
+						"key": "X-M2M-RI",
+						"type": "text",
+						"value": "1234"
+					},
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "S000000000085183855332"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"m2m:cin\": {\r\n    \"cnf\": \"application/json\",\r\n    \"con\":{\r\n            \"serialNo\": 1,\r\n            \"phoneNo\": \"KR01223468724\",\r\n            \"wtime\": 1474444002000,\r\n            \"lat\": 33.459647,\r\n            \"lng\": 126.561137,\r\n            \"alt\": 277.3,\r\n            \"hdop\": 0.7,\r\n            \"speed\": 0,\r\n            \"azimuth\": 81,\r\n            \"evSpeed\": 0,\r\n            \"evOdo\": 40829,\r\n            \"evTemp\": 21,\r\n            \"evSoc\": 62,\r\n            \"evEst\": 64\r\n          }\r\n  }\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "203.253.128.167:3000/end",
+					"host": [
+						"203",
+						"253",
+						"128",
+						"167"
+					],
+					"port": "3000",
+					"path": [
+						"end"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f41139b8-3600-4fb6-a956-05aebe26394a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a84ea40a-3e7a-4400-aaab-7b2fe1803b6f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

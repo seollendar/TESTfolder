@@ -1,0 +1,131 @@
+gps-geometry
+insert into spatio values ('d1', 'location', '137', '24', '0', '20210329T211511')
+
+insert into spatio (ae, container, latitude, longitude, altitude, time, gps) values 
+('yt0', 'location', '37.411215', '127.12873', '277.3', '2021-08-30 01:00:00', ST_SetSRID(ST_MakePoint('127.12873','37.411215'),4326)),
+('yt1', 'location', '37.411445', '127.128724', '277.3', '2021-08-30 02:00:00', ST_SetSRID(ST_MakePoint('127.128724', '37.411445'),4326)),
+('yt1', 'location', '37.411881', '127.128729', '277.3', '2021-08-30 03:00:00', ST_SetSRID(ST_MakePoint('127.128729', '37.411881'),4326)),
+('yt1', 'location', '37.412327', '127.128741', '277.3', '2021-08-30 04:00:00', ST_SetSRID(ST_MakePoint('127.128741', '37.412327'),4326)),
+('yt1', 'location', '37.412836', '127.128724', '277.3', '2021-08-30 05:00:00', ST_SetSRID(ST_MakePoint('127.128724', '37.412836'),4326)),
+('yt1', 'location', '37.413281', '127.128747', '277.3', '2021-08-30 06:00:00', ST_SetSRID(ST_MakePoint('127.128747', '37.413281'),4326)),
+
+('yt2', 'location', '37.41104', '127.128735', '277.3', '2021-08-30 02:00:00', ST_SetSRID(ST_MakePoint('127.128735', '37.41104'),4326)),
+('yt2', 'location', '37.410626', '127.128735', '277.3', '2021-08-30 03:00:00', ST_SetSRID(ST_MakePoint('127.128735', '37.410626'),4326)),
+('yt2', 'location', '37.410094', '127.128718', '277.3', '2021-08-30 04:00:00', ST_SetSRID(ST_MakePoint('127.128718', '37.410094'),4326)),
+('yt2', 'location', '37.409585', '127.128718', '277.3', '2021-08-30 05:00:00', ST_SetSRID(ST_MakePoint('127.128718', '37.409585'),4326)),
+('yt2', 'location', '37.409203', '127.128724', '277.3', '2021-08-30 06:00:00', ST_SetSRID(ST_MakePoint('127.128724', '37.409203'),4326)),
+
+('yt3', 'location', '37.411313', '127.129124', '277.3', '2021-08-30 02:00:00', ST_SetSRID(ST_MakePoint('127.129124', '37.411313'),4326)),
+('yt3', 'location', '37.410981', '127.129502', '277.3', '2021-08-30 03:00:00', ST_SetSRID(ST_MakePoint('127.129502', '37.410981'),4326)),
+('yt3', 'location', '37.410371', '127.129519', '277.3', '2021-08-30 04:00:00', ST_SetSRID(ST_MakePoint('127.129519', '37.410371'),4326)),
+('yt3', 'location', '37.410348', '127.130272', '277.3', '2021-08-30 05:00:00', ST_SetSRID(ST_MakePoint('127.130272', '37.410348'),4326)),
+('yt3', 'location', '37.410735', '127.131099', '277.3', '2021-08-30 06:00:00', ST_SetSRID(ST_MakePoint('127.131099', '37.410735'),4326))
+
+
+insert into spatio (ae, container, latitude, longitude, altitude, time, gps) values 
+('yt0', 'wearable_location', '37.411215', '127.12873', '277.3', '2021-08-30 01:00:00', ST_SetSRID(ST_MakePoint('127.12873','37.411215'),4326)),
+('yt1', 'wearable_location', '37.411445', '127.128724', '277.3', '2021-08-30 02:00:00', ST_SetSRID(ST_MakePoint('127.128724', '37.411445'),4326)),
+('yt1', 'wearable_location', '37.411881', '127.128729', '277.3', '2021-08-30 03:00:00', ST_SetSRID(ST_MakePoint('127.128729', '37.411881'),4326)),
+('yt1', 'wearable_location', '37.412327', '127.128741', '277.3', '2021-08-30 04:00:00', ST_SetSRID(ST_MakePoint('127.128741', '37.412327'),4326)),
+('yt1', 'wearable_location', '37.412836', '127.128724', '277.3', '2021-08-30 05:00:00', ST_SetSRID(ST_MakePoint('127.128724', '37.412836'),4326)),
+('yt1', 'wearable_location', '37.413281', '127.128747', '277.3', '2021-08-30 06:00:00', ST_SetSRID(ST_MakePoint('127.128747', '37.413281'),4326)),
+
+('yt2', 'wearable_location', '37.41104', '127.128735', '277.3', '2021-03-30 02:00:00', ST_SetSRID(ST_MakePoint('127.128735', '37.41104'),4326)),
+('yt2', 'wearable_location', '37.410626', '127.128735', '277.3', '2021-03-30 03:00:00', ST_SetSRID(ST_MakePoint('127.128735', '37.410626'),4326)),
+('yt2', 'wearable_location', '37.410094', '127.128718', '277.3', '2021-03-30 04:00:00', ST_SetSRID(ST_MakePoint('127.128718', '37.410094'),4326)),
+('yt2', 'wearable_location', '37.409585', '127.128718', '277.3', '2021-03-30 05:00:00', ST_SetSRID(ST_MakePoint('127.128718', '37.409585'),4326)),
+('yt2', 'wearable_location', '37.409203', '127.128724', '277.3', '2021-03-30 06:00:00', ST_SetSRID(ST_MakePoint('127.128724', '37.409203'),4326)),
+
+('yt3', 'wearable_location', '37.411313', '127.129124', '277.3', '2021-03-30 02:00:00', ST_SetSRID(ST_MakePoint('127.129124', '37.411313'),4326)),
+('yt3', 'wearable_location', '37.410981', '127.129502', '277.3', '2021-03-30 03:00:00', ST_SetSRID(ST_MakePoint('127.129502', '37.410981'),4326)),
+('yt3', 'wearable_location', '37.410371', '127.129519', '277.3', '2021-03-30 04:00:00', ST_SetSRID(ST_MakePoint('127.129519', '37.410371'),4326)),
+('yt3', 'wearable_location', '37.410348', '127.130272', '277.3', '2021-03-30 05:00:00', ST_SetSRID(ST_MakePoint('127.130272', '37.410348'),4326)),
+('yt3', 'wearable_location', '37.410735', '127.131099', '277.3', '2021-03-30 06:00:00', ST_SetSRID(ST_MakePoint('127.131099', '37.410735'),4326))
+
+
+
+insert into spatio (ae, container, latitude, longitude, altitude, creationtime, gps) values 
+('star', 'location', '37.413255', '127.129485', '277.3', '2021-03-30 12:00:00', ST_SetSRID(ST_MakePoint('127.129485', '37.413255'),4326)),
+('star', 'location', '37.413206', '127.129577', '277.3', '2021-03-30 12:00:05', ST_SetSRID(ST_MakePoint('127.129577', '37.413206'),4326)),
+('star', 'location', '37.413282', '127.129545', '277.3', '2021-03-30 12:00:10', ST_SetSRID(ST_MakePoint('127.129545', '37.413282'),4326)),
+('star', 'location', '37.413202', '127.129504', '277.3', '2021-03-30 12:00:15', ST_SetSRID(ST_MakePoint('127.129504', '37.413202'),4326)),
+('star', 'location', '37.413255', '127.129587', '277.3', '2021-03-30 12:00:20', ST_SetSRID(ST_MakePoint('127.129587', '37.413255'),4326))
+
+
+1. [/location/:deviceID/:containerName/latest]
+SELECT cincontentsdb.ae, cincontentsdb.container, cincontentsdb.latitude, cincontentsdb.longitude, cincontentsdb.altitude, cincontentsdb.creationtime from (
+	SELECT ae, MAX(cincontentsdb.creationtime) as creationtime FROM cincontentsdb where ae = 'yt0'  GROUP BY ae
+)  AS lastvalue, cincontentsdb   WHERE lastvalue.creationtime=cincontentsdb.creationtime AND lastvalue.ae=cincontentsdb.ae
+
+/*container 조건 추가*/
+SELECT spatio.ae, spatio.container, spatio.latitude, spatio.longitude, spatio.altitude, spatio.time from (
+	SELECT ae, container, MAX(spatio.time) as time FROM spatio where ae = 'yt0' AND container = 'location' GROUP BY ae, container
+)  AS lastvalue, spatio   WHERE lastvalue.time=spatio.time AND lastvalue.ae=spatio.ae AND lastvalue.container=spatio.container
+
+
+2. [/location/:deviceID/:containerName/around]
+select cincontentsdb.ae, cincontentsdb.container, cincontentsdb.latitude, cincontentsdb.longitude, cincontentsdb.creationtime from (select cincontentsdb.ae, max(cincontentsdb.creationtime) from cincontentsdb WHERE st_DistanceSphere(gps, (SELECT DISTINCT cincontentsdb.gps from (SELECT ae, MAX(cincontentsdb.creationtime) as creationtime FROM cincontentsdb where ae = 'yt0' GROUP BY ae) AS lastvalue, cincontentsdb WHERE lastvalue.creationtime=cincontentsdb.creationtime AND lastvalue.ae=cincontentsdb.ae)) < 250 AND creationtime::timestamp > NOW() - interval '864000 sec' group by ae) as lastvalue, cincontentsdb WHERE lastvalue.max = cincontentsdb.creationtime AND lastvalue.ae=cincontentsdb.ae
+
+
+3. [/location/field]
+select cincontentsdb.ae, cincontentsdb.container, cincontentsdb.latitude, cincontentsdb.longitude, cincontentsdb.altitude, cincontentsdb.creationtime from ( select cincontentsdb.ae, max(cincontentsdb.creationtime) from cincontentsdb WHERE creationtime::timestamp > NOW() - interval '864000 sec' AND  ST_Contains(ST_SetSRID(ST_MakePolygon(ST_GeomFromText('LINESTRING(127.127674 37.408977, 127.129812 37.408977, 127.129812 37.410804, 127.127674 37.410804, 127.127674 37.408977)')), 4326), GPS) group by ae) as lastvalue, cincontentsdb WHERE lastvalue.max = cincontentsdb.creationtime AND lastvalue.ae=cincontentsdb.ae
+
+4. [/location/:deviceID/:containerName/distance?from={startDateTime}&to={endDateTime}]
+SELECT st_Length(ST_TRANSFORM(ST_MakeLine(geom.gps),5179)) as dvalue FROM ( select * from (select * from cincontentsdb where ae='"+ deviceID +"') as aevalue "
+	      + "where creationtime  between '"+ startdatetime +"' and '"+ enddatetime +"' order by creationtime) As geom"
+
+7. [/location/:deviceID/:containerName/trajectory?from={startDateTime}&to={endDateTime}]
+select * from (select * from cincontentsdb where ae='deviceID') as aevalue where creationtime  between '"+ startdatetime +"' and '"+ enddatetime +"' order by creationtime asc"
+  
+
+
+Excel - speed
+=ACOS(COS(RADIANS(90-지점1의위도))*COS(RADIANS(90-지점2의위도))+SIN(RADIANS(90-지점1의위도)) *SIN(RADIANS(90-지점2의위도))*COS(RADIANS(지점1의경도-지점2의경도)))*6371
+
+
+###방위각(방향):postgis - ST_Azimuth_방위각ok
+ST_Azimuth(geometry pointA, geometry pointB);
+
+ex)
+Geometry Azimuth in degrees
+
+SELECT degrees(ST_Azimuth(ST_Point(25, 45), ST_Point(75, 100))) AS degA_B,
+	    degrees(ST_Azimuth(ST_Point(75, 100), ST_Point(25, 45))) AS degB_A;
+
+***gps점 만들 때 처럼, 위도 경도 반대로 들어감!		
+SELECT degrees(ST_Azimuth(ST_Point(127.12873,37.411215), ST_Point(127.128724, 37.411445)))
+
+
+###속력 = 거리/시간
+
+###거리 : postgis - 점을 선으로 바꾸어 길이구하기
+st_Length(ST_TRANSFORM(ST_MakeLine(geom.gps),5179))
+
+###시간차(sec):postgresql
+select extract(epoch from ('2011-12-30 10:55:00'::timestamp - '2011-12-30 09:55:00'::timestamp));
+select extract(epoch from ('2020-07-15T06:00:00.000Z'::timestamp - '2020-07-15T04:00:00.000Z'::timestamp));
+
+
+
+
+
+#행갯수
+SELECT count(*) from (select * from (select * from cincontentsdb where ae='yt1') as aevalue where creationtime  between '2020-07-15 13:00:00' and '2020-07-15 16:00:00' order by creationtime) as rownum
+
+/*error
+SELECT count(*)
+  FROM (SELECT ROW_NUMBER() OVER (ORDER BY creationtime) AS ROW, *
+          FROM cincontentsdb) T
+where ae='yt1' and between '2020-07-15 13:00:00' and '2020-07-15 16:00:00' order by creationtime
+*/
+--between '2020-07-15 13:00:00' and '2020-07-15 16:00:00'
+
+
+### PK생성 (ALTER TABLE 테이블  ADD PRIMARY KEY 컬럼명;)
+ALTER TABLE spatio ADD PRIMARY KEY (ae, container, time);
+
+### UNIQUE (ALTER TABLE 테이블 add CONSTRAINT 제약조건으로만들이름 unique (컬럼명, container, creationtime));
+ALTER TABLE spatio add 
+    CONSTRAINT Duprevent unique (ae, container, creationtime)
+
+

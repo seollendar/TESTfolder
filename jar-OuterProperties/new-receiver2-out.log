@@ -1,0 +1,340 @@
+2021-11-01 05:43:26: server listening at port:7980
+2021-11-01 05:43:26: Producer is on ready
+2021-11-01 05:43:26: server listening at port:7980
+2021-11-01 05:43:26: Producer is on ready
+2021-11-01 05:43:27: server listening at port:7980
+2021-11-01 05:43:27: Producer is on ready
+2021-11-01 05:43:27: server listening at port:7980
+2021-11-01 05:43:27: Producer is on ready
+2021-11-01 06:44:42: server listening at port:7980
+2021-11-01 06:44:42: Producer is on ready
+2021-11-01 06:44:42: server listening at port:7980
+2021-11-01 06:44:42: Producer is on ready
+2021-11-01 06:44:43: server listening at port:7980
+2021-11-01 06:44:43: Producer is on ready
+2021-11-01 06:44:43: server listening at port:7980
+2021-11-01 06:44:43: Producer is on ready
+2021-11-01 11:03:28: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin00ec433404-83fe-44e6-8f4d-c144625b00651635764469313'[39m,
+              rn: [32m'cin-ec433404-83fe-44e6-8f4d-c144625b00651635764469313'[39m,
+              pi: [32m'cnt00000000000004369'[39m,
+              ct: [32m'20211101T200109'[39m,
+              lt: [32m'20211101T200109'[39m,
+              et: [32m'20211201T200109'[39m,
+              st: [33m41[39m,
+              cr: [32m'SS01228446062'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m148[39m,
+              con:
+               { start_time: [32m'2021-10-31T23:55:27.000'[39m,
+                 end_time: [32m'2021-11-01T11:03:28.000'[39m,
+                 fuel_used: [33m37.5[39m,
+                 driving_time: [33m8.9[39m,
+                 driving_distance: [33m64[39m,
+                 dev_id: [32m'S01228446062'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228446062'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228446062/taco'[39m,
+     cr: [32m'SS01228446062'[39m } }
+2021-11-01 12:45:30: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin00ca085935-5b47-44ac-b93c-922de48f19f41635770591412'[39m,
+              rn: [32m'cin-ca085935-5b47-44ac-b93c-922de48f19f41635770591412'[39m,
+              pi: [32m'cnt00000000000004323'[39m,
+              ct: [32m'20211101T214311'[39m,
+              lt: [32m'20211101T214311'[39m,
+              et: [32m'20211201T214311'[39m,
+              st: [33m54[39m,
+              cr: [32m'SS01228451410'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m152[39m,
+              con:
+               { start_time: [32m'2021-10-31T16:57:52.000'[39m,
+                 end_time: [32m'2021-11-01T12:45:30.000'[39m,
+                 fuel_used: [33m59[39m,
+                 driving_time: [33m14.45[39m,
+                 driving_distance: [33m76.625[39m,
+                 dev_id: [32m'S01228451410'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228451410'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228451410/taco'[39m,
+     cr: [32m'SS01228451410'[39m } }
+2021-11-01 15:00:02: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin00d0762131-4223-447c-9bf5-0e2263dd7b621635778663144'[39m,
+              rn: [32m'cin-d0762131-4223-447c-9bf5-0e2263dd7b621635778663144'[39m,
+              pi: [32m'cnt00000000000004323'[39m,
+              ct: [32m'20211101T235743'[39m,
+              lt: [32m'20211101T235743'[39m,
+              et: [32m'20211201T235743'[39m,
+              st: [33m55[39m,
+              cr: [32m'SS01228451410'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m146[39m,
+              con:
+               { start_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 end_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 fuel_used: [33m0[39m,
+                 driving_time: [33m0[39m,
+                 driving_distance: [33m0[39m,
+                 dev_id: [32m'S01228451410'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228451410'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228451410/taco'[39m,
+     cr: [32m'SS01228451410'[39m } }
+2021-11-01 15:00:02: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin00b6a2f8eb-bb95-4550-8d40-9cc5ec55d87f1635778663215'[39m,
+              rn: [32m'cin-b6a2f8eb-bb95-4550-8d40-9cc5ec55d87f1635778663215'[39m,
+              pi: [32m'cnt00000000000004368'[39m,
+              ct: [32m'20211101T235743'[39m,
+              lt: [32m'20211101T235743'[39m,
+              et: [32m'20211201T235743'[39m,
+              st: [33m10[39m,
+              cr: [32m'SS01228446601'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m146[39m,
+              con:
+               { start_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 end_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 fuel_used: [33m0[39m,
+                 driving_time: [33m0[39m,
+                 driving_distance: [33m0[39m,
+                 dev_id: [32m'S01228446601'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228446601'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228446601/taco'[39m,
+     cr: [32m'SS01228446601'[39m } }
+2021-11-01 15:00:02: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin007e9a1b72-c1c6-4bb9-b20e-fdb112bfd6611635778663482'[39m,
+              rn: [32m'cin-7e9a1b72-c1c6-4bb9-b20e-fdb112bfd6611635778663482'[39m,
+              pi: [32m'cnt00000000000004452'[39m,
+              ct: [32m'20211101T235743'[39m,
+              lt: [32m'20211101T235743'[39m,
+              et: [32m'20211201T235743'[39m,
+              st: [33m4[39m,
+              cr: [32m'SS01228446592'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m146[39m,
+              con:
+               { start_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 end_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 fuel_used: [33m0[39m,
+                 driving_time: [33m0[39m,
+                 driving_distance: [33m0[39m,
+                 dev_id: [32m'S01228446592'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228446592'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228446592/taco'[39m,
+     cr: [32m'SS01228446592'[39m } }
+2021-11-01 15:00:03: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin00cf86855d-3dd7-4971-aad9-53d8ca7d74231635778663858'[39m,
+              rn: [32m'cin-cf86855d-3dd7-4971-aad9-53d8ca7d74231635778663858'[39m,
+              pi: [32m'cnt00000000000004488'[39m,
+              ct: [32m'20211101T235743'[39m,
+              lt: [32m'20211101T235743'[39m,
+              et: [32m'20211201T235743'[39m,
+              st: [33m17[39m,
+              cr: [32m'SS01228443901'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m146[39m,
+              con:
+               { start_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 end_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 fuel_used: [33m0[39m,
+                 driving_time: [33m0[39m,
+                 driving_distance: [33m0[39m,
+                 dev_id: [32m'S01228443901'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228443901'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228443901/taco'[39m,
+     cr: [32m'SS01228443901'[39m } }
+2021-11-01 15:00:03: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin00e2d4ff72-cf12-4d7a-8f52-8bae29fb69f41635778664046'[39m,
+              rn: [32m'cin-e2d4ff72-cf12-4d7a-8f52-8bae29fb69f41635778664046'[39m,
+              pi: [32m'cnt00000000000004369'[39m,
+              ct: [32m'20211101T235744'[39m,
+              lt: [32m'20211101T235744'[39m,
+              et: [32m'20211201T235744'[39m,
+              st: [33m42[39m,
+              cr: [32m'SS01228446062'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m146[39m,
+              con:
+               { start_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 end_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 fuel_used: [33m0[39m,
+                 driving_time: [33m0[39m,
+                 driving_distance: [33m0[39m,
+                 dev_id: [32m'S01228446062'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228446062'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228446062/taco'[39m,
+     cr: [32m'SS01228446062'[39m } }
+2021-11-01 15:00:04: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin0033a25270-bd43-49cb-b7f1-a81bc73902bf1635778664899'[39m,
+              rn: [32m'cin-33a25270-bd43-49cb-b7f1-a81bc73902bf1635778664899'[39m,
+              pi: [32m'cnt00000000000004548'[39m,
+              ct: [32m'20211101T235744'[39m,
+              lt: [32m'20211101T235744'[39m,
+              et: [32m'20211201T235744'[39m,
+              st: [33m7[39m,
+              cr: [32m'SS01228450943'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m153[39m,
+              con:
+               { start_time: [32m'2021-10-31T15:00:01.000'[39m,
+                 end_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 fuel_used: [33m78.5[39m,
+                 driving_time: [33m18.45[39m,
+                 driving_distance: [33m125.625[39m,
+                 dev_id: [32m'S01228450943'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228450943'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228450943/taco'[39m,
+     cr: [32m'SS01228450943'[39m } }
+2021-11-01 15:00:04: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin00625a6c1a-5c5e-458b-936d-3a21acfb4a701635778664929'[39m,
+              rn: [32m'cin-625a6c1a-5c5e-458b-936d-3a21acfb4a701635778664929'[39m,
+              pi: [32m'cnt00000000000004394'[39m,
+              ct: [32m'20211101T235744'[39m,
+              lt: [32m'20211101T235744'[39m,
+              et: [32m'20211201T235744'[39m,
+              st: [33m9[39m,
+              cr: [32m'SS01228444215'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m146[39m,
+              con:
+               { start_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 end_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 fuel_used: [33m0[39m,
+                 driving_time: [33m0[39m,
+                 driving_distance: [33m0[39m,
+                 dev_id: [32m'S01228444215'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228444215'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228444215/taco'[39m,
+     cr: [32m'SS01228444215'[39m } }
+2021-11-01 19:47:01: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin0021bdb709-7f1f-4c55-9782-11edd5ad8c771635795882005'[39m,
+              rn: [32m'cin-21bdb709-7f1f-4c55-9782-11edd5ad8c771635795882005'[39m,
+              pi: [32m'cnt00000000000004369'[39m,
+              ct: [32m'20211102T044442'[39m,
+              lt: [32m'20211102T044442'[39m,
+              et: [32m'20211202T044442'[39m,
+              st: [33m43[39m,
+              cr: [32m'SS01228446062'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m150[39m,
+              con:
+               { start_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 end_time: [32m'2021-11-01T19:47:00.000'[39m,
+                 fuel_used: [33m21[39m,
+                 driving_time: [33m4.8[39m,
+                 driving_distance: [33m34.625[39m,
+                 dev_id: [32m'S01228446062'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228446062'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228446062/taco'[39m,
+     cr: [32m'SS01228446062'[39m } }
+2021-11-01 22:14:54: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin00a218f989-69ff-470c-985e-5f358981d0961635804754721'[39m,
+              rn: [32m'cin-a218f989-69ff-470c-985e-5f358981d0961635804754721'[39m,
+              pi: [32m'cnt00000000000004323'[39m,
+              ct: [32m'20211102T071234'[39m,
+              lt: [32m'20211102T071234'[39m,
+              et: [32m'20211202T071234'[39m,
+              st: [33m56[39m,
+              cr: [32m'SS01228451410'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m151[39m,
+              con:
+               { start_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 end_time: [32m'2021-11-01T22:14:53.000'[39m,
+                 fuel_used: [33m36[39m,
+                 driving_time: [33m7.25[39m,
+                 driving_distance: [33m48.625[39m,
+                 dev_id: [32m'S01228451410'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228451410'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228451410/taco'[39m,
+     cr: [32m'SS01228451410'[39m } }
+2021-11-01 22:22:58: { [32m'm2m:sgn'[39m:
+   { nev:
+      { rep:
+         { [32m'm2m:cin'[39m:
+            { ty: [33m4[39m,
+              ri: [32m'cin00047de91f-1141-4e28-9202-23c3dcb513f11635805239191'[39m,
+              rn: [32m'cin-047de91f-1141-4e28-9202-23c3dcb513f11635805239191'[39m,
+              pi: [32m'cnt00000000000004323'[39m,
+              ct: [32m'20211102T072039'[39m,
+              lt: [32m'20211102T072039'[39m,
+              et: [32m'20211202T072039'[39m,
+              st: [33m57[39m,
+              cr: [32m'SS01228451410'[39m,
+              cnf: [32m'application/json'[39m,
+              cs: [33m151[39m,
+              con:
+               { start_time: [32m'2021-11-01T15:00:01.000'[39m,
+                 end_time: [32m'2021-11-01T22:22:58.000'[39m,
+                 fuel_used: [33m36[39m,
+                 driving_time: [33m7.25[39m,
+                 driving_distance: [33m48.875[39m,
+                 dev_id: [32m'S01228451410'[39m } } },
+        om: { op: [33m1[39m, org: [32m'SS01228451410'[39m } },
+     vrq: [33mfalse[39m,
+     sud: [33mfalse[39m,
+     sur: [32m'/~/CB00003/smartharbor/S01228451410/taco'[39m,
+     cr: [32m'SS01228451410'[39m } }

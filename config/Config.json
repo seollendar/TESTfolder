@@ -1,0 +1,22 @@
+{
+	"containerClass": {
+		"Location": {
+			"location": "Location",
+			"wearable_location": "Location"
+		},
+		"TimeSeries": {
+			"taco": ["start_time","end_time","fuel_used","driving_time","driving_distance","dev_id"],
+			"wearable_hr": {},
+			"cctv_ptz": {},
+			"backward_channel": {},
+			"spreader": {},
+			"cctv_veh_container": {},
+			"cctv_waiting": {},
+			"chassis": {},
+			"cctv_gate": {}
+		}
+
+	}
+}
+
+

@@ -1,0 +1,6 @@
+{
+    "kafkaHostAddress": "kafka:9093",
+    "influxServerAddress" : "10.0.2.5",
+    "postgisServerAddress" : "10.0.2.4",
+    "postgisPassWord" : "keti123"
+}
