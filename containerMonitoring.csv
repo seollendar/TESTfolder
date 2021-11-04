@@ -1,0 +1,2 @@
+Date,receiver,kafka,classifier,preprocessor,influx,postGIS,APIserver,Error
+2021-11-04,OK,OK,OK,OK,OK,OK,OK,0

@@ -16,3 +16,5 @@ date,receiver,kafka,classifier,preprocessor,influx,postGIS,APIserver
 2021-11-04,OK,OK,OK,OK,OK,OK,OK,0
 2021-11-04,Error,Error,Error,Error,Error,Error,Error,7
 2021-11-04,Error,Error,Error,Error,Error,Error,Error,7
+2021-11-04,Error,Error,Error,Error,Error,Error,Error,7
+2021-11-04,Error,Error,Error,Error,Error,Error,Error,7
