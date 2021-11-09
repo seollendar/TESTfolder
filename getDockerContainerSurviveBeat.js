@@ -3,14 +3,14 @@ const app = express();
 const fs = require("fs");
 const Influx = require("influx");
 const influx = new Influx.InfluxDB(
-   //`http://admin:password@192.168.172.73:8086/SmartPortData`
+   //`http://admin:password@192.168.172.73:8086/monit`
    `http://admin:password@localhost:8086/SmartPortData`
 );
 app.listen(1203, () => {
    console.log("API-Server Start on port 1203");
 });
 
-const Beatperiod = 86400000; //24h
+const Beatperiod = 2000; //86400000; //24h
 
 async function GETbeat(container) {
    var dailyResult = {};
@@ -95,7 +95,7 @@ function getToday() {
    return dateString;
 }
 
-function jsonToCSV(titles) {
+function makeTitle(titles) {
    let title_string = "";
 
    titles.forEach((title, index) => {
@@ -117,7 +117,7 @@ const titles = [
    "APIserver",
    "Error",
 ];
-const title_string = jsonToCSV(titles);
+const title_string = makeTitle(titles);
 console.log(title_string);
 
 //fs.writeFileSync(`containerMonitoring.csv`, title_string);

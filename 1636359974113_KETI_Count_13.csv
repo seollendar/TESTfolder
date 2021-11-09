@@ -1,0 +1,4 @@
+Date,APIserver,classifier,influx,kafka,postGIS,preprocessor,receiver,test,test2,test3,test4,test5,test6
+2021-11-08,164,164,164,164,164,164,164,53,19,9,13,9,3
+2021-11-08,166,166,166,166,166,166,166,55,19,9,13,9,5
+2021-11-08,169,169,169,169,169,169,169,58,19,9,13,9,8

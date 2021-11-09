@@ -44,3 +44,5 @@ Check = setInterval(SetInfluxData, 2000, "preprocessor"); //24H
 Check = setInterval(SetInfluxData, 2000, "influx"); //24H
 Check = setInterval(SetInfluxData, 2000, "postGIS"); //24H
 Check = setInterval(SetInfluxData, 2000, "APIserver"); //24H
+Check = setInterval(SetInfluxData, 2000, "test");
+Check = setInterval(SetInfluxData, 2000, "test6");

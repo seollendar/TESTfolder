@@ -3,8 +3,7 @@ const app = express();
 const fs = require("fs");
 const Influx = require("influx");
 const influx = new Influx.InfluxDB(
-   //`http://admin:password@192.168.172.73:8086/monit`
-   `http://admin:password@localhost:8086/SmartPortData`
+   `http://admin:password@192.168.172.73:8086/SmartPortData2`
 );
 app.listen(1209, () => {
    console.log("API-Server Start on port 1209");
