@@ -55,7 +55,7 @@ function writeCSVfile() {
       "classifier",
       "preprocessor",
       "influx",
-      "postGIS",
+      "postgres",
       "APIserver",
    ]).then((values) => {
       //console.log("Containers", values);
@@ -69,7 +69,7 @@ function writeCSVfile() {
       }
       csv_string = `${getToday()},${values[0].receiver},${
          values[1].classifier
-      },${values[2].preprocessor},${values[3].influx},${values[4].postGIS},${
+      },${values[2].preprocessor},${values[3].influx},${values[4].postgres},${
          values[5].APIserver
       },${count}\r\n`;
 
@@ -111,7 +111,7 @@ const titles = [
    "classifier",
    "preprocessor",
    "influx",
-   "postGIS",
+   "postgres",
    "APIserver",
    "Error",
 ];
