@@ -3,6 +3,7 @@
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "forever": "^4.0.1",
+    "fs": "^0.0.1-security",
     "hashmap": "^2.4.0",
     "influx": "^5.9.2",
     "kafka-node": "^5.0.0",
@@ -10,6 +11,7 @@
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "redis": "^3.1.2",
+    "tensorflow-serving-node-client": "^0.0.1",
     "util": "^0.12.4",
     "winston": "^3.3.3"
   }
