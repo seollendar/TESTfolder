@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "3cc269d0-f65e-4105-9a72-90d111f079ed",
+		"name": "DigitalTwin Framework-Digital Connector",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1005/DigitalTwin/DO+container | create Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"DO2\",\r\n  \"sensor\": [\r\n    {\r\n      \"name\": \"PO1.boom_angle\"\r\n    },\r\n    {\r\n      \"name\": \"PO1.crane_rotation\"\r\n    }\r\n  ],\r\n  \"control\": [\r\n    {\r\n      \"name\": \"crane_control\",\r\n      \"data\": [\r\n        \"1627475400001, 320, -, -\",\r\n        \"1627475400002, 320, received\",\r\n        \"1627475400003, 320, received, done\",\r\n        \"1627475400004, 320, received, done\",\r\n        \"1627475400005, 320, received, done\"\r\n      ]\r\n    },\r\n    {\r\n      \"name\": \"crane_angle\",\r\n      \"data\": [\r\n        \"1627475400001, 22, -, -\",\r\n        \"1627475400002, 23, received, done\",\r\n        \"1627475400003, 34, received, done\",\r\n        \"1627475400004, 32, received, done\",\r\n        \"1627475400005, 15, received, done\"\r\n      ]\r\n    }\r\n  ],\r\n  \"simulation\": [\r\n    {\r\n      \"name\": \"pos_3sec_later\"\r\n    },\r\n    {\r\n      \"name\": \"pos_5sec_later\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1203/DigitalConnector/Sensor | create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"PO1.boom_angle\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1203/DigitalConnector/Sensor",
+					"host": [
+						"localhost"
+					],
+					"port": "1203",
+					"path": [
+						"DigitalConnector",
+						"Sensor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1203/DigitalConnector/Sensor/:sensorName | create Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"PO1.boom_angle\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1203/DigitalConnector/Sensor",
+					"host": [
+						"localhost"
+					],
+					"port": "1203",
+					"path": [
+						"DigitalConnector",
+						"Sensor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1203/DigitalConnector/Sensor | retreive",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:1203/DigitalConnector/Sensor",
+					"host": [
+						"localhost"
+					],
+					"port": "1203",
+					"path": [
+						"DigitalConnector",
+						"Sensor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1203/DigitalConnector/Sensor | delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExZWI1MTc5OWUzOGIxZGMiLCJpYXQiOjE2MTAwODY4MzUsImV4cCI6MTYxNTI3MDgzNX0.Irf9Twaq3DFhX0IOvfRTUCMSt6sRj2C0-jEY8rpjDRM"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1203/DigitalConnector/PO1.boom_angles",
+					"host": [
+						"localhost"
+					],
+					"port": "1203",
+					"path": [
+						"DigitalConnector",
+						"PO1.boom_angles"
+					]
+				},
+				"description": "DB에 저장된 device token 삭제"
+			},
+			"response": []
+		},
+		{
+			"name": "1203/DigitalConnector/SensorData | create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"PO1.boom_angle\",\r\n  \"data\": 27,\r\n  \"JsonData\": {\"latitude\": 27, \"longitude\": 127}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1203/DigitalConnector/SensorData",
+					"host": [
+						"localhost"
+					],
+					"port": "1203",
+					"path": [
+						"DigitalConnector",
+						"SensorData"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

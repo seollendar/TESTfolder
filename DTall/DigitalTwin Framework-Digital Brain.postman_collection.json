@@ -1,0 +1,433 @@
+{
+	"info": {
+		"_postman_id": "bb327362-1356-4af7-bc9f-c45956020e4e",
+		"name": "DigitalTwin Framework-Digital Brain",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1005/DigitalTwin/DO | create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"DO1\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/DO+container | create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"DO2\",\r\n  \"sensor\": [\r\n    {\r\n      \"name\": \"PO1.boom_angle\"\r\n    },\r\n    {\r\n      \"name\": \"PO1.crane_rotation\"\r\n    }\r\n  ],\r\n  \"control\": [\r\n    {\r\n      \"name\": \"crane_control\",\r\n      \"data\": [\r\n        \"1627475400001, 320, -, -\",\r\n        \"1627475400002, 320, received\",\r\n        \"1627475400003, 320, received, done\",\r\n        \"1627475400004, 320, received, done\",\r\n        \"1627475400005, 320, received, done\"\r\n      ]\r\n    },\r\n    {\r\n      \"name\": \"crane_angle\",\r\n      \"data\": [\r\n        \"1627475400001, 22, -, -\",\r\n        \"1627475400002, 23, received, done\",\r\n        \"1627475400003, 34, received, done\",\r\n        \"1627475400004, 32, received, done\",\r\n        \"1627475400005, 15, received, done\"\r\n      ]\r\n    }\r\n  ],\r\n  \"simulation\": [\r\n    {\r\n      \"name\": \"pos_3sec_later\"\r\n    },\r\n    {\r\n      \"name\": \"pos_5sec_later\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO | retreive",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO2",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/sensor | create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"PO1.boom_angle\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO2/sensor",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO2",
+						"sensor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/control | create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"crane_angle\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO2/control",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO2",
+						"control"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/controlData | create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"crane_angle\",\r\n    \"data\" : \"1627475400010, 30, -, -\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO2/controlData",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO2",
+						"controlData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/:control | update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\" : \"1627475400001, 320\",\r\n    \"controlReceived\" : \"test\", \r\n    \"controlDone\": \"set\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO2/crane_control",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO2",
+						"crane_control"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/simulation | create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"pos_3sec_later\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO1/simulation",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO1",
+						"simulation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/simulation?mqtt=enable | create Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"pos_3sec_later\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO2/simulation?mqtt=enable",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO2",
+						"simulation"
+					],
+					"query": [
+						{
+							"key": "mqtt",
+							"value": "enable"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/simulationData | create Trigger",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"pos_3sec_later\",\r\n  \"simargs\":[\"1627475400000, 321\", \"1627475400000, 28\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO1/simulationTrigger",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO1",
+						"simulationTrigger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/simulationResult | create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"pos_3sec_later\",\r\n  \"simargs\":[\"1627475400000, 320\", \"1627475400000, 28\"],\r\n  \"result\" : 26,\r\n  \"ts\": 1629198700000\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO2/simulationResult",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO2",
+						"simulationResult"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/sensor | delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExZWI1MTc5OWUzOGIxZGMiLCJpYXQiOjE2MTAwODY4MzUsImV4cCI6MTYxNTI3MDgzNX0.Irf9Twaq3DFhX0IOvfRTUCMSt6sRj2C0-jEY8rpjDRM"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO2/sensor/PO1.boom_angle",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO2",
+						"sensor",
+						"PO1.boom_angle"
+					]
+				},
+				"description": "DB에 저장된 device token 삭제"
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/control | delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExZWI1MTc5OWUzOGIxZGMiLCJpYXQiOjE2MTAwODY4MzUsImV4cCI6MTYxNTI3MDgzNX0.Irf9Twaq3DFhX0IOvfRTUCMSt6sRj2C0-jEY8rpjDRM"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO1/control/crane_control",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO1",
+						"control",
+						"crane_control"
+					]
+				},
+				"description": "DB에 저장된 device token 삭제"
+			},
+			"response": []
+		},
+		{
+			"name": "1005/DigitalTwin/:DO/simulation | delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExZWI1MTc5OWUzOGIxZGMiLCJpYXQiOjE2MTAwODY4MzUsImV4cCI6MTYxNTI3MDgzNX0.Irf9Twaq3DFhX0IOvfRTUCMSt6sRj2C0-jEY8rpjDRM"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1005/DigitalTwin/DO2/simulation/pos_3sec_later",
+					"host": [
+						"localhost"
+					],
+					"port": "1005",
+					"path": [
+						"DigitalTwin",
+						"DO2",
+						"simulation",
+						"pos_3sec_later"
+					]
+				},
+				"description": "DB에 저장된 device token 삭제"
+			},
+			"response": []
+		}
+	]
+}

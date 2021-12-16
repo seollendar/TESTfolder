@@ -1,4 +1,4 @@
-// const Config = require("./HostAddressConfig.json");
+//const Config = require("./HostAddressConfig.json");
 const express = require("express");
 const app = express();
 const util = require("util");
@@ -10,7 +10,7 @@ const { Kafka } = require("kafkajs");
  */
 const topic = "SmartPortData";
 const partitionSet = 5;
-// const kafkaHostAddress = Config.kafkaHostAddress;
+//const kafkaHostAddress = Config.kafkaHostAddress;
 
 const port = 7980;
 app.listen(port, () => console.log(`server listening at port:${port}`));
@@ -35,7 +35,7 @@ app.post("/noti_for_fastdata", function (req, res) {
    });
    req.on("end", async function () {
       jsonbody = JSON.parse(fullBody);
-      console.log(jsonbody);
+      //console.log(jsonbody);
       if (
          jsonbody["m2m:sgn"] &&
          jsonbody["m2m:sgn"].sur &&
@@ -59,7 +59,7 @@ app.post("/noti_for_fastdata", function (req, res) {
                   { value: JSON.stringify(jsonbody), partition: partitionNum },
                ],
             })
-            .then(console.log)
+            //.then(console.log)
             .catch((e) => console.error(`[example/producer] ${e.message}`, e));
 
          res.status(200).send("Received Data");

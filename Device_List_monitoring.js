@@ -11,10 +11,14 @@ app.listen(1209, () => {
 var moment = require("moment");
 require("moment-timezone");
 moment.tz.setDefault("UTC");
-
+const schedule = require("node-schedule");
 //GETDeviceNum();
 
-repeater = setInterval(GETDeviceNum, 5000);
+schedule.scheduleJob("* * 0 * * *", function () {
+   GETDeviceNum();
+});
+
+// repeater = setInterval(GETDeviceNum, 5000);
 
 const Beatperiod = 86400000; //24h
 var DeviceNum = 0,
@@ -124,7 +128,7 @@ async function GETdataCount(deviceID) {
       .query(sql)
       .then((result) => {
          if (result[0]) {
-            dailyDeviceDataCount = result[0].count_heartBeat;
+            dailyDeviceDataCount = result[0].count_container;
             return { [deviceID]: dailyDeviceDataCount };
          } else {
             return { [deviceID]: 0 };

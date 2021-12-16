@@ -28,6 +28,7 @@ var rawImageData = jpeg.decode(jpegData, { useTArray: true }); // return as Uint
 const spawn = require("child_process").spawn;
 
 const result = spawn("python", ["clientT-ImageSend.py", jpegData]);
+
 result.stdout.on("data", function (data) {
    console.log(data.toString());
 });
