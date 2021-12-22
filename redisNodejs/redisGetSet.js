@@ -14,7 +14,7 @@ app.post("*", function (req, res) {
       fullBody += chunk;
    });
 
-   req.on("end", function () {
+   req.on("end", async function () {
       var jsonbody = JSON.parse(fullBody);
       var key = jsonbody.a;
       var value = jsonbody.b;
