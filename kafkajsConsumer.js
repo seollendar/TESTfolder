@@ -4,7 +4,7 @@ const kafka = new Kafka({
    brokers: ["localhost:9092"],
 });
 
-const topic = "SmartPortData";
+const topic = "Smart";
 const consumer = kafka.consumer({ groupId: "test-group" });
 
 const run = async () => {

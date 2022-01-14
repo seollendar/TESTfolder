@@ -1,5 +1,5 @@
-//var pg = require("pg"); //postgres
-//pg.types.setTypeParser(1114, (str) => str);
+var pg = require("pg"); //postgres
+pg.types.setTypeParser(1114, (str) => str);
 
 const express = require("express");
 
@@ -30,17 +30,22 @@ var moment = require("moment");
 require("moment-timezone");
 moment.tz.setDefault("UTC");
 
-/*
-   console.log(config);
-   const client = new pg.Client(config);
+// console.log(config);
+// const client = new pg.Client(config);
+const client = new pg.Client({
+   user: "postgres",
+   host: "203.254.173.175",
+   database: "spatiodata",
+   password: "keti123",
+   port: 5432,
+});
+client.connect((err) => {
+   if (err) throw err;
+   else {
+      console.log("Database connected");
+   }
+});
 
-   client.connect((err) => {
-      if (err) throw err;
-      else {
-         console.log("Database connected");
-      }
-   });
-*/
 app.listen(7979, () => {
    console.log("API-Server Start on port 7979");
 });

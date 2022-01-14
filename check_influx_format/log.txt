@@ -1,0 +1,8 @@
+test1의 location의 altitute의 값이 없음
+test1의 location의 velocity의 값이 없음
+test1의 location의 direction의 값이 없음
+==========
+test2의 location의 altitute의 값이 없음
+test2의 location의 velocity의 값이 없음
+test2의 location의 direction의 값이 없음
+==========

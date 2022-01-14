@@ -129,3 +129,26 @@ ALTER TABLE spatio add
     CONSTRAINT Duprevent unique (ae, container, creationtime)
 
 
+
+###2, 3 API조회
+--DELETE FROM cincontents WHERE time <= '20210728T144010'
+select * from cincontents
+
+SELECT spatio.ae, spatio.container, spatio.latitude, spatio.longitude, spatio.altitude, spatio.time 
+from (
+	SELECT ae, container, MAX(spatio.time) as time 
+	FROM spatio 
+	where ae = 'S01228451566' AND container = 'location' GROUP BY ae, container
+
+)  AS lastvalue, spatio   
+WHERE lastvalue.time=spatio.time AND lastvalue.ae=spatio.ae AND lastvalue.container=spatio.container
+
+
+select spatio.ae, spatio.container, spatio.latitude, spatio.longitude, spatio.altitude, spatio.time 
+from ( 
+	select spatio.ae, max(spatio.time) 
+	from spatio 
+	WHERE time >= '20211228T010000' 
+	AND  ST_Contains(ST_SetSRID(ST_MakePolygon(ST_GeomFromText('LINESTRING(128.537547 34.841176, 129.415673 34.841176, 129.415673 35.605746, 128.537547 35.605746, 128.537547 34.841176)')),4326), GPS) group by ae
+) as lastvalue, spatio 
+WHERE lastvalue.max = spatio.time AND lastvalue.ae=spatio.ae;

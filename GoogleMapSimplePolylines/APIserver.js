@@ -100,6 +100,7 @@ app.get("/location/:deviceID/:containerName/latest", (req, res) => {
  * localhost:7979/location/deviceID/containerName/around?radius={중심 반경 거리(단위:m)}&term={조회 기간 (단위:s)}
  */
 app.get("/location/:deviceID/:containerName/around", (req, res) => {
+   res.set({ "access-control-allow-origin": "*" });
    if (
       req.params.deviceID &&
       req.params.containerName &&
@@ -180,6 +181,8 @@ app.get("/location/:deviceID/:containerName/around", (req, res) => {
  * localhost:7979/location/field?firstPoint={[37.408977, 127.127674]}&secondPoint={[37.410804, 127.129812]}&term={조회 기간 (단위:s)}
  */
 app.get("/location/field", (req, res) => {
+   res.set({ "access-control-allow-origin": "*" });
+   console.log("req: ", req.query);
    if (req.query.firstPoint && req.query.secondPoint && req.query.term) {
       let { firstPoint, secondPoint, term } = req.query;
 

@@ -1,0 +1,102 @@
+{
+   "location": {
+      "latitude": "number",
+      "longitude": "number",
+      "altitude": "number",
+      "velocity": "number",
+      "direction": "number",
+      "position_fix": "number",
+      "satelites": "number",
+      "dev_id": "string"
+   },
+   "wearable_location": {
+      "latitude": "number",
+      "longitude": "number",
+      "altitude": "number",
+      "velocity": "number",
+      "direction": "number",
+      "dev_id": "string"
+   },
+   "location_power": {
+      "state": "string",
+      "dev_id": "string"
+   },
+   "taco": {
+      "start_time": "string",
+      "end_time": "string",
+      "fuel_used": "number",
+      "driving_time": "number",
+      "driving_distance": "number",
+      "dev_id": "string"
+   },
+   "wearable_user": {
+      "user": "number",
+      "dev_id": "string"
+   },
+
+   "wearable_hr": {
+      "hr": "number",
+      "battery": "number",
+      "dev_id": "string"
+   },
+   "wearable_power": {
+      "status": "string",
+      "dev_id": "string"
+   },
+   "cctv_ptz": {
+      "camera_id": "string",
+      "current_pan": "number",
+      "current_tilt": "number",
+      "current_zoom": "number",
+      "dev_id": "string"
+   },
+   "tc_spreader": {
+      "hoist_pos": "string",
+      "trolley_pos": "string",
+      "spreader_lock": "string",
+      "spreader_size": "string",
+      "dev_id": "string"
+   },
+   "qc_spreader": {
+      "hoist_pos": "string",
+      "trolley_pos": "string",
+      "spreader_lock": "string",
+      "spreader_size": "string",
+      "dev_id": "string"
+   },
+   "cctv_veh_container": {
+      "tp_id": "string",
+      "truck_arrive": "string",
+      "cntr": "string",
+      "dev_id": "string"
+   },
+   "cctv_waiting": {
+      "tp_id": "string",
+      "waiting_truck": "number",
+      "dev_id": "string",
+      "waiting_position": "string",
+      "waiting_type": "string"
+   },
+   "chassis": {
+      "chassis_link_status": "string",
+      "dev_id": "string"
+   },
+   "cctv_gate": {
+      "truck_no": "string",
+      "inout": "string",
+      "cntr_info": "string",
+      "dev_id": "string"
+   },
+   "heartbeat": {
+      "status": "string",
+      "dev_id": "string"
+   },
+   "fota": {
+      "version": "string",
+      "dev_id": "string"
+   },
+   "device_version": {
+      "version": "string",
+      "dev_id": "string"
+   }
+}

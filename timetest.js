@@ -1,12 +1,18 @@
 //const moment = require('moment');
 const moment = require('moment-timezone'); 
-moment.tz.setDefault("UTC"); 
-
-
+//moment.tz.setDefault("UTC"); 
+      var startdatetime = moment(moment(new Date).format("YYYYMMDD")) / 0.000001;
+	  var startdatetime = moment(moment('20220103')) / 0.000001;
+      var enddatetime = startdatetime + 86399999999000;
+	  console.log(startdatetime, enddatetime)
+//var startdatetime = moment(new Date).format("YYYYMMDD") / 0.000001;
+//var enddatetime = startdatetime + 86399999999000;
+//console.log(moment(new Date).format("YYYYMMDD"), `from = ${startdatetime}, to = ${enddatetime}`);
+/*
 let cinContents = moment('2021-07-26 15:44:55.175');
 let prevData = moment('2021-07-26 15:44:53.195');
 console.log(cinContents, prevData, cinContents - prevData);	 
-
+*/
 /* sql
 select con from cincontents where ae = 'D1' and container = 'scnt-location' 
 --update cincontents set con = 'ssul' where ae = 'D1' and container = 'scnt-location' 
@@ -65,8 +71,8 @@ console.log(moment().format('YYYY-MM-DDTHH:mm:ss')); //2020-11-06T08:22:57
 //1000, timediff로 속도 계산하려면 1000으로 나눠야 함
 // let wtime = "2020-10-22T07:01:31.200";
 
-// let epoch = moment(wtime)//.unix();
-// console.log("epoch:", epoch);
+ //let epoch = moment(wtime).unix();
+ //console.log("epoch:", epoch);
 //var d = new Date();
 //var now = moment(d).format('YYYY-MM-DD HH:mm:ss'); //Date 객체를 파라미터로 넣기
 //console.log(now);
@@ -94,18 +100,29 @@ console.log(moment().format('YYYY-MM-DDTHH:mm:ss')); //2020-11-06T08:22:57
 
 //ct = jsonbody['m2m:sgn'].nev.rep['m2m:cin'].ct;
 
-
-// let wtime = '2020-10-22T07:01:31.200'
+/*
+ let swtime = '2020-10-22T07:01:31.200'
 // let wtime = 1603340088000; //epochtime
 // let epoch = moment(wtime).unix(); //epochtime To UTCzero
 // wtimeUTC = utcTime.format('YYYY-MM-DD HH:mm:ss');
 // console.log(epoch)//2020-10-22 04:14:48
+// 1640710838034000000
+// 1603340088000
+ let wtime = 1640710838034000000; //epochtime
+ let utcTime = moment(wtime); //epochtime To UTCzero
+ wtimeUTC = utcTime.format('YYYY-MM-DDTHH:mm:ss.SSS');
+ console.log(wtimeUTC)//2020-10-22T13:14:48
 
-// let wtime = 1603340088000; //epochtime
-// let utcTime = moment(wtime); //epochtime To UTCzero
-// wtimeUTC = utcTime.format('YYYY-MM-DD HH:mm:ss');
-// console.log(wtimeUTC)//2020-10-22 13:14:48
+var newDate = moment(1640710838034000000).format("MM/DD/YYYY");
+ console.log(newDate)
+*/
+//var date = new Date("2021-12-30T13:14:48.232"); 
+//var milliseconds = date.getTime(); 
+// This will return you the number of milliseconds
+// elapsed from January 1, 1970 
+// if your date is less than that date, the value will be negative
 
+//console.log(milliseconds);
 
 
 

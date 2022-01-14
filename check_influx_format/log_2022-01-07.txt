@@ -1,0 +1,1294 @@
+S01220000079 - device_version - dev_id - not exist
+==========
+S01220000079 - heartbeat - dev_id - not exist
+==========
+S01220000079 - location - dev_id - not exist
+==========
+==========
+S01220000229 - device_version - dev_id - not exist
+==========
+S01220000229 - heartbeat - dev_id - not exist
+==========
+S01220000229 - location - dev_id - not exist
+==========
+==========
+S01220000584 - device_version - dev_id - not exist
+==========
+S01220000584 - heartbeat - dev_id - not exist
+==========
+S01220000584 - location - dev_id - not exist
+==========
+==========
+S01220003679 - device_version - dev_id - not exist
+==========
+S01220003679 - heartbeat - dev_id - not exist
+==========
+S01220003679 - location - dev_id - not exist
+==========
+==========
+S01220005710 - device_version - dev_id - not exist
+==========
+S01220005710 - heartbeat - dev_id - not exist
+==========
+S01220005710 - location - dev_id - not exist
+==========
+==========
+S01220010980 - device_version - dev_id - not exist
+==========
+S01220010980 - heartbeat - dev_id - not exist
+==========
+S01220010980 - location - dev_id - not exist
+==========
+==========
+S01220018653 - device_version - dev_id - not exist
+==========
+S01220018653 - heartbeat - dev_id - not exist
+==========
+==========
+==========
+S01220882455 - device_version - dev_id - not exist
+==========
+S01220882455 - heartbeat - dev_id - not exist
+==========
+S01220882455 - location - dev_id - not exist
+==========
+==========
+S01220884158 - device_version - dev_id - not exist
+==========
+S01220884158 - heartbeat - dev_id - not exist
+==========
+==========
+==========
+S01220884664 - device_version - dev_id - not exist
+==========
+S01220884664 - heartbeat - dev_id - not exist
+==========
+S01220884664 - location - dev_id - not exist
+==========
+==========
+S01224093557 - device_version - dev_id - not exist
+==========
+S01224093557 - heartbeat - dev_id - not exist
+==========
+S01224093557 - location - dev_id - not exist
+==========
+==========
+S01224093741 - device_version - dev_id - not exist
+==========
+S01224093741 - heartbeat - dev_id - not exist
+==========
+==========
+==========
+S01224310210 - device_version - dev_id - not exist
+==========
+S01224310210 - heartbeat - dev_id - not exist
+==========
+S01224310210 - location - dev_id - not exist
+==========
+==========
+S01224878548 - device_version - dev_id - not exist
+==========
+S01224878548 - heartbeat - dev_id - not exist
+==========
+S01224878548 - location - dev_id - not exist
+==========
+==========
+==========
+S01228401141 - device_version - dev_id - not exist
+==========
+S01228401141 - heartbeat - dev_id - not exist
+==========
+S01228401141 - location - dev_id - not exist
+==========
+==========
+==========
+S01228401171 - device_version - dev_id - not exist
+==========
+S01228401171 - heartbeat - dev_id - not exist
+==========
+S01228401171 - location - dev_id - not exist
+==========
+==========
+S01228401265 - device_version - dev_id - not exist
+==========
+S01228401265 - heartbeat - dev_id - not exist
+==========
+S01228401265 - location - dev_id - not exist
+==========
+==========
+S01228402594 - device_version - dev_id - not exist
+==========
+S01228402594 - heartbeat - dev_id - not exist
+==========
+S01228402594 - location - dev_id - not exist
+==========
+==========
+S01228403515 - device_version - dev_id - not exist
+==========
+S01228403515 - heartbeat - dev_id - not exist
+==========
+S01228403515 - location - dev_id - not exist
+==========
+==========
+S01228404294 - device_version - dev_id - not exist
+==========
+S01228404294 - heartbeat - dev_id - not exist
+==========
+S01228404294 - location - dev_id - not exist
+==========
+==========
+S01228411703 - device_version - dev_id - not exist
+==========
+S01228411703 - heartbeat - dev_id - not exist
+==========
+==========
+==========
+S01228413875 - device_version - dev_id - not exist
+==========
+S01228413875 - heartbeat - dev_id - not exist
+==========
+S01228413875 - location - dev_id - not exist
+==========
+==========
+S01228413892 - device_version - dev_id - not exist
+==========
+S01228413892 - heartbeat - dev_id - not exist
+==========
+S01228413892 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+==========
+S01228417615 - location - dev_id - not exist
+==========
+S01228417771 - device_version - dev_id - not exist
+==========
+S01228417771 - heartbeat - dev_id - not exist
+==========
+S01228417771 - location - dev_id - not exist
+==========
+==========
+S01228417785 - device_version - dev_id - not exist
+==========
+S01228417785 - heartbeat - dev_id - not exist
+==========
+S01228417785 - location - dev_id - not exist
+==========
+==========
+S01228417912 - device_version - dev_id - not exist
+==========
+S01228417912 - heartbeat - dev_id - not exist
+==========
+S01228417912 - location - dev_id - not exist
+==========
+==========
+S01228417916 - device_version - dev_id - not exist
+==========
+S01228417916 - heartbeat - dev_id - not exist
+==========
+S01228417916 - location - dev_id - not exist
+==========
+==========
+S01228419250 - device_version - dev_id - not exist
+==========
+S01228419250 - heartbeat - dev_id - not exist
+==========
+S01228419250 - location - dev_id - not exist
+==========
+==========
+S01228419274 - device_version - dev_id - not exist
+==========
+S01228419274 - heartbeat - dev_id - not exist
+==========
+S01228419274 - location - dev_id - not exist
+==========
+==========
+S01228419313 - device_version - dev_id - not exist
+==========
+S01228419313 - heartbeat - dev_id - not exist
+==========
+S01228419313 - location - dev_id - not exist
+==========
+==========
+S01228419320 - device_version - dev_id - not exist
+==========
+S01228419320 - heartbeat - dev_id - not exist
+==========
+S01228419320 - location - dev_id - not exist
+==========
+==========
+S01228419679 - device_version - dev_id - not exist
+==========
+S01228419679 - heartbeat - dev_id - not exist
+==========
+S01228419679 - location - dev_id - not exist
+==========
+==========
+S01228419908 - device_version - dev_id - not exist
+==========
+S01228419908 - heartbeat - dev_id - not exist
+==========
+S01228419908 - location - dev_id - not exist
+==========
+==========
+S01228420399 - device_version - dev_id - not exist
+==========
+S01228420399 - heartbeat - dev_id - not exist
+==========
+S01228420399 - location - dev_id - not exist
+==========
+==========
+S01228420455 - device_version - dev_id - not exist
+==========
+S01228420455 - heartbeat - dev_id - not exist
+==========
+S01228420455 - location - dev_id - not exist
+==========
+==========
+S01228420459 - device_version - dev_id - not exist
+==========
+S01228420459 - heartbeat - dev_id - not exist
+==========
+S01228420459 - location - dev_id - not exist
+==========
+==========
+S01228422742 - device_version - dev_id - not exist
+==========
+S01228422742 - heartbeat - dev_id - not exist
+==========
+S01228422742 - location - dev_id - not exist
+==========
+==========
+S01228423570 - device_version - dev_id - not exist
+==========
+S01228423570 - heartbeat - dev_id - not exist
+==========
+S01228423570 - location - dev_id - not exist
+==========
+==========
+S01228423645 - device_version - dev_id - not exist
+==========
+S01228423645 - heartbeat - dev_id - not exist
+==========
+S01228423645 - location - dev_id - not exist
+==========
+==========
+==========
+S01228423663 - device_version - dev_id - not exist
+==========
+S01228423663 - heartbeat - dev_id - not exist
+==========
+S01228423663 - location - dev_id - not exist
+==========
+==========
+S01228423670 - device_version - dev_id - not exist
+==========
+S01228423670 - heartbeat - dev_id - not exist
+==========
+S01228423670 - location - dev_id - not exist
+==========
+==========
+S01228426606 - device_version - dev_id - not exist
+==========
+S01228426606 - heartbeat - dev_id - not exist
+==========
+S01228426606 - location - dev_id - not exist
+==========
+==========
+S01228427268 - device_version - dev_id - not exist
+==========
+S01228427268 - heartbeat - dev_id - not exist
+==========
+S01228427268 - location - dev_id - not exist
+==========
+==========
+==========
+S01228427466 - device_version - dev_id - not exist
+==========
+S01228427466 - heartbeat - dev_id - not exist
+==========
+S01228427466 - location - dev_id - not exist
+==========
+==========
+S01228429763 - device_version - dev_id - not exist
+==========
+S01228429763 - heartbeat - dev_id - not exist
+==========
+==========
+S01228429895 - device_version - dev_id - not exist
+==========
+S01228429895 - heartbeat - dev_id - not exist
+==========
+S01228429895 - location - dev_id - not exist
+==========
+==========
+S01228431838 - device_version - dev_id - not exist
+==========
+S01228431838 - heartbeat - dev_id - not exist
+==========
+S01228431838 - location - dev_id - not exist
+==========
+==========
+S01228436545 - device_version - dev_id - not exist
+==========
+S01228436545 - heartbeat - dev_id - not exist
+==========
+S01228436545 - location - dev_id - not exist
+==========
+==========
+S01228436780 - device_version - dev_id - not exist
+==========
+S01228436780 - heartbeat - dev_id - not exist
+==========
+S01228436780 - location - dev_id - not exist
+==========
+==========
+S01228438941 - device_version - dev_id - not exist
+==========
+S01228438941 - heartbeat - dev_id - not exist
+==========
+S01228438941 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+==========
+S01228438959 - location - dev_id - not exist
+==========
+S01228442138 - device_version - dev_id - not exist
+==========
+S01228442138 - heartbeat - dev_id - not exist
+==========
+==========
+==========
+S01228443783 - device_version - dev_id - not exist
+==========
+S01228443783 - heartbeat - dev_id - not exist
+==========
+S01228443783 - location - dev_id - not exist
+==========
+==========
+S01228443901 - device_version - dev_id - not exist
+==========
+S01228443901 - heartbeat - dev_id - not exist
+==========
+S01228443901 - location - dev_id - not exist
+==========
+==========
+==========
+S01228443918 - device_version - dev_id - not exist
+==========
+S01228443918 - heartbeat - dev_id - not exist
+==========
+S01228443918 - location - dev_id - not exist
+==========
+==========
+==========
+S01228444215 - device_version - dev_id - not exist
+==========
+S01228444215 - heartbeat - dev_id - not exist
+==========
+S01228444215 - location - dev_id - not exist
+==========
+==========
+==========
+S01228444234 - device_version - dev_id - not exist
+==========
+S01228444234 - heartbeat - dev_id - not exist
+==========
+S01228444234 - location - dev_id - not exist
+==========
+==========
+S01228445225 - device_version - dev_id - not exist
+==========
+S01228445225 - heartbeat - dev_id - not exist
+==========
+S01228445225 - location - dev_id - not exist
+==========
+==========
+==========
+S01228446062 - device_version - dev_id - not exist
+==========
+S01228446062 - heartbeat - dev_id - not exist
+==========
+S01228446062 - location - dev_id - not exist
+==========
+==========
+S01228446157 - device_version - dev_id - not exist
+==========
+S01228446157 - heartbeat - dev_id - not exist
+==========
+S01228446157 - location - dev_id - not exist
+==========
+==========
+S01228446237 - device_version - dev_id - not exist
+==========
+S01228446237 - heartbeat - dev_id - not exist
+==========
+S01228446237 - location - dev_id - not exist
+==========
+==========
+S01228446269 - device_version - dev_id - not exist
+==========
+==========
+==========
+S01228446313 - device_version - dev_id - not exist
+==========
+==========
+==========
+S01228446348 - device_version - dev_id - not exist
+==========
+S01228446348 - heartbeat - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228446376 - device_version - dev_id - not exist
+==========
+==========
+==========
+S01228446382 - device_version - dev_id - not exist
+==========
+S01228446382 - heartbeat - dev_id - not exist
+==========
+S01228446382 - location - dev_id - not exist
+==========
+==========
+S01228446387 - device_version - dev_id - not exist
+==========
+S01228446387 - heartbeat - dev_id - not exist
+==========
+S01228446387 - location - dev_id - not exist
+==========
+==========
+S01228446424 - device_version - dev_id - not exist
+==========
+==========
+S01228446427 - device_version - dev_id - not exist
+==========
+S01228446428 - device_version - dev_id - not exist
+==========
+==========
+==========
+S01228446429 - device_version - dev_id - not exist
+==========
+==========
+S01228446429 - wearable_location - dev_id - null - not exist
+==========
+S01228446439 - device_version - dev_id - not exist
+==========
+S01228446439 - heartbeat - dev_id - not exist
+==========
+S01228446439 - location - dev_id - not exist
+==========
+==========
+S01228446441 - device_version - dev_id - not exist
+==========
+S01228446441 - heartbeat - dev_id - not exist
+==========
+S01228446441 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+==========
+S01228446469 - device_version - dev_id - not exist
+==========
+==========
+S01228446475 - device_version - dev_id - not exist
+==========
+S01228446475 - heartbeat - dev_id - not exist
+==========
+S01228446475 - location - dev_id - not exist
+==========
+==========
+S01228446482 - device_version - dev_id - not exist
+==========
+==========
+==========
+==========
+==========
+==========
+S01228446514 - device_version - dev_id - not exist
+==========
+S01228446514 - heartbeat - dev_id - not exist
+==========
+S01228446514 - location - dev_id - not exist
+==========
+==========
+S01228446520 - device_version - dev_id - not exist
+==========
+S01228446520 - heartbeat - dev_id - not exist
+==========
+S01228446520 - location - dev_id - not exist
+==========
+==========
+==========
+S01228446592 - device_version - dev_id - not exist
+==========
+S01228446592 - heartbeat - dev_id - not exist
+==========
+S01228446592 - location - dev_id - not exist
+==========
+==========
+S01228446596 - device_version - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228446601 - device_version - dev_id - not exist
+==========
+S01228446601 - heartbeat - dev_id - not exist
+==========
+S01228446601 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228450693 - device_version - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228450739 - device_version - dev_id - not exist
+==========
+S01228450739 - heartbeat - dev_id - not exist
+==========
+S01228450739 - location - dev_id - not exist
+==========
+==========
+S01228450783 - device_version - dev_id - not exist
+==========
+S01228450783 - heartbeat - dev_id - not exist
+==========
+S01228450783 - location - dev_id - not exist
+==========
+==========
+==========
+S01228450943 - device_version - dev_id - not exist
+==========
+S01228450943 - heartbeat - dev_id - not exist
+==========
+S01228450943 - location - dev_id - not exist
+==========
+==========
+==========
+S01228450956 - device_version - dev_id - not exist
+==========
+S01228450956 - heartbeat - dev_id - not exist
+==========
+S01228450956 - location - dev_id - not exist
+==========
+==========
+S01228451001 - device_version - dev_id - not exist
+==========
+S01228451001 - heartbeat - dev_id - not exist
+==========
+S01228451001 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228451026 - device_version - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228451049 - device_version - dev_id - not exist
+==========
+==========
+S01228451082 - device_version - dev_id - not exist
+==========
+==========
+==========
+S01228451093 - device_version - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228451095 - device_version - dev_id - not exist
+==========
+S01228451095 - heartbeat - dev_id - not exist
+==========
+S01228451095 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228451113 - device_version - dev_id - not exist
+==========
+==========
+S01228451125 - device_version - dev_id - not exist
+==========
+S01228451125 - heartbeat - dev_id - not exist
+==========
+S01228451125 - location - dev_id - not exist
+==========
+==========
+S01228451179 - device_version - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228451237 - device_version - dev_id - not exist
+==========
+S01228451237 - heartbeat - dev_id - not exist
+==========
+S01228451237 - location - dev_id - not exist
+==========
+==========
+S01228451316 - device_version - dev_id - not exist
+==========
+S01228451316 - heartbeat - dev_id - not exist
+==========
+S01228451316 - location - dev_id - not exist
+==========
+==========
+S01228451326 - device_version - dev_id - not exist
+==========
+S01228451326 - heartbeat - dev_id - not exist
+==========
+S01228451326 - location - dev_id - not exist
+==========
+==========
+S01228451331 - device_version - dev_id - not exist
+==========
+S01228451331 - heartbeat - dev_id - not exist
+==========
+S01228451331 - location - dev_id - not exist
+==========
+==========
+S01228451339 - device_version - dev_id - not exist
+==========
+S01228451339 - heartbeat - dev_id - not exist
+==========
+S01228451339 - location - dev_id - not exist
+==========
+==========
+==========
+S01228451340 - device_version - dev_id - not exist
+==========
+S01228451340 - heartbeat - dev_id - not exist
+==========
+S01228451340 - location - dev_id - not exist
+==========
+==========
+S01228451359 - device_version - dev_id - not exist
+==========
+S01228451359 - heartbeat - dev_id - not exist
+==========
+S01228451359 - location - dev_id - not exist
+==========
+==========
+S01228451360 - device_version - dev_id - not exist
+==========
+S01228451360 - heartbeat - dev_id - not exist
+==========
+S01228451360 - location - dev_id - not exist
+==========
+==========
+S01228451373 - device_version - dev_id - not exist
+==========
+S01228451373 - heartbeat - dev_id - not exist
+==========
+S01228451373 - location - dev_id - not exist
+==========
+==========
+S01228451394 - device_version - dev_id - not exist
+==========
+S01228451394 - heartbeat - dev_id - not exist
+==========
+S01228451394 - location - dev_id - not exist
+==========
+==========
+S01228451399 - device_version - dev_id - not exist
+==========
+S01228451399 - heartbeat - dev_id - not exist
+==========
+S01228451399 - location - dev_id - not exist
+==========
+==========
+S01228451401 - device_version - dev_id - not exist
+==========
+S01228451401 - heartbeat - dev_id - not exist
+==========
+S01228451401 - location - dev_id - not exist
+==========
+==========
+S01228451405 - device_version - dev_id - not exist
+==========
+S01228451405 - heartbeat - dev_id - not exist
+==========
+==========
+S01228451407 - device_version - dev_id - not exist
+==========
+S01228451407 - heartbeat - dev_id - not exist
+==========
+==========
+S01228451410 - device_version - dev_id - not exist
+==========
+S01228451410 - heartbeat - dev_id - not exist
+==========
+S01228451410 - location - dev_id - not exist
+==========
+==========
+==========
+S01228451411 - device_version - dev_id - not exist
+==========
+S01228451411 - heartbeat - dev_id - not exist
+==========
+S01228451411 - location - dev_id - not exist
+==========
+==========
+S01228451419 - device_version - dev_id - not exist
+==========
+S01228451419 - heartbeat - dev_id - not exist
+==========
+S01228451419 - location - dev_id - not exist
+==========
+==========
+S01228451422 - device_version - dev_id - not exist
+==========
+S01228451422 - heartbeat - dev_id - not exist
+==========
+S01228451422 - location - dev_id - not exist
+==========
+==========
+S01228451436 - device_version - dev_id - not exist
+==========
+S01228451436 - heartbeat - dev_id - not exist
+==========
+S01228451436 - location - dev_id - not exist
+==========
+==========
+S01228451446 - device_version - dev_id - not exist
+==========
+S01228451446 - heartbeat - dev_id - not exist
+==========
+S01228451446 - location - dev_id - not exist
+==========
+==========
+S01228451448 - device_version - dev_id - not exist
+==========
+S01228451448 - heartbeat - dev_id - not exist
+==========
+S01228451448 - location - dev_id - not exist
+==========
+==========
+S01228451452 - device_version - dev_id - not exist
+==========
+S01228451452 - heartbeat - dev_id - not exist
+==========
+S01228451452 - location - dev_id - not exist
+==========
+==========
+S01228451453 - device_version - dev_id - not exist
+==========
+S01228451453 - heartbeat - dev_id - not exist
+==========
+S01228451453 - location - dev_id - not exist
+==========
+==========
+S01228451455 - device_version - dev_id - not exist
+==========
+S01228451455 - heartbeat - dev_id - not exist
+==========
+S01228451455 - location - dev_id - not exist
+==========
+==========
+S01228451456 - device_version - dev_id - not exist
+==========
+S01228451456 - heartbeat - dev_id - not exist
+==========
+S01228451456 - location - dev_id - not exist
+==========
+==========
+S01228451457 - device_version - dev_id - not exist
+==========
+S01228451457 - heartbeat - dev_id - not exist
+==========
+S01228451457 - location - dev_id - not exist
+==========
+==========
+S01228451461 - device_version - dev_id - not exist
+==========
+S01228451461 - heartbeat - dev_id - not exist
+==========
+S01228451461 - location - dev_id - not exist
+==========
+==========
+S01228451462 - device_version - dev_id - not exist
+==========
+S01228451462 - heartbeat - dev_id - not exist
+==========
+S01228451462 - location - dev_id - not exist
+==========
+==========
+S01228451479 - device_version - dev_id - not exist
+==========
+S01228451479 - heartbeat - dev_id - not exist
+==========
+S01228451479 - location - dev_id - not exist
+==========
+==========
+S01228451481 - device_version - dev_id - not exist
+==========
+S01228451481 - heartbeat - dev_id - not exist
+==========
+S01228451481 - location - dev_id - not exist
+==========
+==========
+S01228451482 - device_version - dev_id - not exist
+==========
+S01228451482 - heartbeat - dev_id - not exist
+==========
+S01228451482 - location - dev_id - not exist
+==========
+==========
+S01228451484 - device_version - dev_id - not exist
+==========
+S01228451484 - heartbeat - dev_id - not exist
+==========
+S01228451484 - location - dev_id - not exist
+==========
+==========
+S01228451488 - device_version - dev_id - not exist
+==========
+S01228451488 - heartbeat - dev_id - not exist
+==========
+S01228451488 - location - dev_id - not exist
+==========
+==========
+S01228451500 - device_version - dev_id - not exist
+==========
+S01228451500 - heartbeat - dev_id - not exist
+==========
+S01228451500 - location - dev_id - not exist
+==========
+==========
+==========
+S01228451501 - device_version - dev_id - not exist
+==========
+S01228451501 - heartbeat - dev_id - not exist
+==========
+S01228451501 - location - dev_id - not exist
+==========
+==========
+S01228451503 - device_version - dev_id - not exist
+==========
+S01228451503 - heartbeat - dev_id - not exist
+==========
+S01228451503 - location - dev_id - not exist
+==========
+==========
+S01228451505 - device_version - dev_id - not exist
+==========
+S01228451505 - heartbeat - dev_id - not exist
+==========
+S01228451505 - location - dev_id - not exist
+==========
+==========
+==========
+S01228451506 - device_version - dev_id - not exist
+==========
+S01228451506 - location - dev_id - not exist
+==========
+==========
+S01228451508 - device_version - dev_id - not exist
+==========
+S01228451508 - heartbeat - dev_id - not exist
+==========
+S01228451508 - location - dev_id - not exist
+==========
+==========
+==========
+S01228451511 - device_version - dev_id - not exist
+==========
+S01228451511 - heartbeat - dev_id - not exist
+==========
+S01228451511 - location - dev_id - not exist
+==========
+==========
+S01228451515 - device_version - dev_id - not exist
+==========
+S01228451515 - heartbeat - dev_id - not exist
+==========
+S01228451515 - location - dev_id - not exist
+==========
+==========
+S01228451517 - device_version - dev_id - not exist
+==========
+S01228451517 - heartbeat - dev_id - not exist
+==========
+S01228451517 - location - dev_id - not exist
+==========
+==========
+S01228451518 - device_version - dev_id - not exist
+==========
+S01228451518 - heartbeat - dev_id - not exist
+==========
+S01228451518 - location - dev_id - not exist
+==========
+==========
+S01228451523 - device_version - dev_id - not exist
+==========
+S01228451523 - heartbeat - dev_id - not exist
+==========
+S01228451523 - location - dev_id - not exist
+==========
+==========
+S01228451524 - device_version - dev_id - not exist
+==========
+S01228451524 - heartbeat - dev_id - not exist
+==========
+S01228451524 - location - dev_id - not exist
+==========
+==========
+S01228451528 - device_version - dev_id - not exist
+==========
+S01228451528 - heartbeat - dev_id - not exist
+==========
+S01228451528 - location - dev_id - not exist
+==========
+==========
+S01228451531 - device_version - dev_id - not exist
+==========
+S01228451531 - heartbeat - dev_id - not exist
+==========
+S01228451531 - location - dev_id - not exist
+==========
+==========
+==========
+S01228451535 - device_version - dev_id - not exist
+==========
+S01228451535 - heartbeat - dev_id - not exist
+==========
+S01228451535 - location - dev_id - not exist
+==========
+==========
+S01228451540 - device_version - dev_id - not exist
+==========
+S01228451540 - heartbeat - dev_id - not exist
+==========
+S01228451540 - location - dev_id - not exist
+==========
+==========
+S01228451542 - device_version - dev_id - not exist
+==========
+S01228451542 - heartbeat - dev_id - not exist
+==========
+S01228451542 - location - dev_id - not exist
+==========
+==========
+S01228451550 - device_version - dev_id - not exist
+==========
+S01228451550 - heartbeat - dev_id - not exist
+==========
+S01228451550 - location - dev_id - not exist
+==========
+==========
+S01228451556 - device_version - dev_id - not exist
+==========
+S01228451556 - heartbeat - dev_id - not exist
+==========
+S01228451556 - location - dev_id - not exist
+==========
+==========
+S01228451557 - device_version - dev_id - not exist
+==========
+S01228451557 - heartbeat - dev_id - not exist
+==========
+S01228451557 - location - dev_id - not exist
+==========
+==========
+==========
+S01228451558 - device_version - dev_id - not exist
+==========
+S01228451558 - heartbeat - dev_id - not exist
+==========
+S01228451558 - location - dev_id - not exist
+==========
+==========
+S01228451561 - device_version - dev_id - not exist
+==========
+S01228451561 - heartbeat - dev_id - not exist
+==========
+S01228451561 - location - dev_id - not exist
+==========
+==========
+S01228451563 - device_version - dev_id - not exist
+==========
+S01228451563 - heartbeat - dev_id - not exist
+==========
+S01228451563 - location - dev_id - not exist
+==========
+==========
+S01228451566 - device_version - dev_id - not exist
+==========
+S01228451566 - heartbeat - dev_id - not exist
+==========
+S01228451566 - location - dev_id - not exist
+==========
+==========
+S01228451572 - device_version - dev_id - not exist
+==========
+S01228451572 - heartbeat - dev_id - not exist
+==========
+S01228451572 - location - dev_id - not exist
+==========
+==========
+S01228451581 - device_version - dev_id - not exist
+==========
+S01228451581 - heartbeat - dev_id - not exist
+==========
+==========
+==========
+S01228451606 - device_version - dev_id - not exist
+==========
+S01228451606 - heartbeat - dev_id - not exist
+==========
+S01228451606 - location - dev_id - not exist
+==========
+==========
+S01228451616 - device_version - dev_id - not exist
+==========
+S01228451616 - heartbeat - dev_id - not exist
+==========
+S01228451616 - location - dev_id - not exist
+==========
+==========
+==========
+S01228451626 - device_version - dev_id - not exist
+==========
+S01228451626 - heartbeat - dev_id - not exist
+==========
+S01228451626 - location - dev_id - not exist
+==========
+==========
+S01228453369 - device_version - dev_id - not exist
+==========
+S01228453369 - heartbeat - dev_id - not exist
+==========
+S01228453369 - location - dev_id - not exist
+==========
+==========
+S01228453477 - device_version - dev_id - not exist
+==========
+S01228453477 - heartbeat - dev_id - not exist
+==========
+==========
+==========
+S01228453739 - device_version - dev_id - not exist
+==========
+S01228453739 - heartbeat - dev_id - not exist
+==========
+==========
+S01228453981 - device_version - dev_id - not exist
+==========
+S01228453981 - heartbeat - dev_id - not exist
+==========
+==========
+==========
+S01228453987 - device_version - dev_id - not exist
+==========
+S01228453987 - heartbeat - dev_id - not exist
+==========
+==========
+S01228454001 - device_version - dev_id - not exist
+==========
+S01228454001 - heartbeat - dev_id - not exist
+==========
+==========
+S01228454019 - device_version - dev_id - not exist
+==========
+S01228454019 - heartbeat - dev_id - not exist
+==========
+==========
+S01228454046 - location - dev_id - not exist
+==========
+S01228454055 - device_version - dev_id - not exist
+==========
+S01228454055 - heartbeat - dev_id - not exist
+==========
+==========
+S01228454069 - device_version - dev_id - not exist
+==========
+==========
+S01228454081 - device_version - dev_id - not exist
+==========
+==========
+==========
+S01228454081 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+==========
+==========
+S01228455078 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228455712 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228455720 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228455783 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228455981 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228455998 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456010 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456016 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456054 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456060 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456088 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456096 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456114 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456123 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456126 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456158 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456185 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456203 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456205 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456214 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456230 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456252 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456253 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456265 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456269 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456275 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456285 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+S01228456307 - location - dev_id - not exist
+==========
+S01228491429 - location - dev_id - not exist
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+STC202108255 - cctv_waiting - tp_id - not exist
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
+==========
