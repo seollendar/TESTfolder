@@ -22,6 +22,7 @@ const { tryJSONparse } = require("./lib");
 /*
  * POST sensor Creation
  */
+let sensorNameList = [];
 app.post("/DigitalConnector/SensorGroup", function (req, res) {
    let fullBody = "";
    req.on("data", function (chunk) {
@@ -33,13 +34,30 @@ app.post("/DigitalConnector/SensorGroup", function (req, res) {
       if (tryJSONparse(messageObject)) {
          sensorNameObj = tryJSONparse(messageObject);
          if (sensorNameObj?.name && sensorNameObj?.mq) {
-            client.hset(
-               "SensorGroup",
-               sensorNameObj.name,
-               JSON.stringify(sensorNameObj.mq)
+            let hasSensorName = sensorNameList.some(
+               (sensor) => sensor === sensorNameObj.name
             );
+            if (hasSensorName) {
+               res.status(500).send("sensor is already exist");
+            } else {
+               const sensorName = sensorNameObj.name;
+               console.log("name: ", sensorName);
+               client.rpush("SensorGroup", sensorName);
+               sensorNameList.push(sensorNameObj.name);
+               const sensorFields = Object.keys(sensorNameObj);
+               for (var i = 0; i < sensorFields.length; i++) {
+                  const field = sensorFields[i];
+                  if (sensorFields[i] != "name") {
+                     client.hset(
+                        sensorNameObj.name,
+                        sensorFields[i],
+                        JSON.stringify(sensorNameObj[field])
+                     );
+                  }
+               }
 
-            res.status(200).send("create sensorGroup");
+               res.status(200).send("create sensorGroup");
+            }
          } else {
             res.status(500).send("please check mandatory field");
          }
@@ -53,15 +71,12 @@ app.post("/DigitalConnector/SensorGroup", function (req, res) {
  * sensorGroup Retrieve
  */
 app.get("/DigitalConnector/SensorGroup", async (req, res) => {
-   const SensorList = [];
-   client.hkeys("SensorGroup", function (err, keys) {
-      // 해시테이블 모든 키 데이터 가져오기
+   client.lrange("SensorGroup", 0, -1, function (err, keys) {
       if (err) throw err;
-      keys.forEach(function (key, i) {
-         SensorList.push(key);
-      });
-      //console.log("SensorList " + SensorList);
-      res.send({ SensorList: SensorList });
+      // const SensorList = keys.map((v) => {
+      //    return JSON.parse(v);
+      // });
+      res.send({ SensorList: keys });
    });
 });
 
@@ -69,19 +84,24 @@ app.get("/DigitalConnector/SensorGroup", async (req, res) => {
  * sensorGroup delete
  */
 app.delete("/DigitalConnector/SensorGroup", async (req, res) => {
-   const resLength = await getHlength().then(function (resLength) {
+   const resLength = await getListLength_delete().then(function (resLength) {
       return resLength;
    });
 
-   client.del("SensorGroup", redis.print);
-
+   client.DEL("SensorGroup");
+   sensorNameList = [];
    res.send({ deleted: resLength });
 });
 //get hash table flield count
-function getHlength() {
+function getListLength_delete() {
    return new Promise((resolve) => {
-      client.hkeys("SensorGroup", function (err, keys) {
+      client.lrange("SensorGroup", 0, -1, function (err, keys) {
          if (err) throw err;
+         keys.forEach((key) => {
+            console.log(key, "delete");
+            client.DEL(key);
+         });
+
          resolve(keys.length);
       });
    });
@@ -105,13 +125,15 @@ app.post("/DigitalConnector/SensorGroup/:sensorName", function (req, res) {
       if (tryJSONparse(messageObject)) {
          sensorNameObj = tryJSONparse(messageObject);
          if (sensorNameObj?.data) {
-            const MQ = await getMQ(req.params.sensorName).then(function (MQ) {
-               return MQ;
-            });
+            const MQ = await getMessageQueList(req.params.sensorName).then(
+               function (MQ) {
+                  return MQ;
+               }
+            );
             if (MQ == null) {
                res.status(200).send("Unregistered sensor.");
             } else {
-               console.log("mq: ", MQ); // ["kafka","mqtt"]
+               //console.log("mq: ", MQ); // ["kafka","mqtt"]
                res.status(200).send("ok");
                for (let index of JSON.parse(MQ)) {
                   switch (index) {
@@ -133,9 +155,9 @@ app.post("/DigitalConnector/SensorGroup/:sensorName", function (req, res) {
    });
 });
 //get hash table fliel value
-function getMQ(sensorName) {
+function getMessageQueList(sensorName) {
    return new Promise((resolve) => {
-      client.hget("SensorGroup", sensorName, function (err, value) {
+      client.hget(sensorName, "mq", function (err, value) {
          resolve(value);
       });
    });
@@ -148,10 +170,23 @@ app.delete("/DigitalConnector/SensorGroup/:sensorName", async (req, res) => {
    if (!req.params?.sensorName) {
       res.status(500).send("please check sensorName parameter");
    } else {
-      client.HDEL("SensorGroup", req.params.sensorName, redis.print);
+      let hasSensorName = sensorNameList.some(
+         (sensor) => sensor === req.params.sensorName
+      );
+      if (!hasSensorName) {
+         res.send("Unregistered sensor.");
+      } else {
+         client.DEL(req.params.sensorName, redis.print);
+         client.lrem("SensorGroup", -1, req.params.sensorName);
+         for (let sI = 0; sI < sensorNameList.length; sI++) {
+            if (sensorNameList[sI] == req.params.sensorName) {
+               sensorNameList.splice(sI, 1);
+               sI--;
+            }
+         }
+         res.send({ success: 1 });
+      }
    }
-
-   res.send({ success: 1 });
 });
 
 /*
@@ -161,17 +196,37 @@ app.get("/DigitalConnector/SensorGroup/:sensorName", async (req, res) => {
    if (!req.params?.sensorName) {
       res.status(500).send("please check sensorName parameter");
    } else {
-      const MQ = await getMQ(req.params.sensorName).then(function (MQ) {
-         return MQ;
+      let resObject = { name: req.params.sensorName };
+      const keys = await getKeys(req.params.sensorName).then(function (keys) {
+         return keys;
       });
-      if (MQ == null) {
+      if (keys.length == 0) {
          res.status(200).send("Unregistered sensor.");
       } else {
-         console.log("mq: ", MQ); // ["kafka","mqtt"]
-         res.status(200).send({
-            name: req.params.sensorName,
-            mq: JSON.parse(MQ),
-         });
+         for (let key of keys) {
+            const value = await getValue(req.params.sensorName, key);
+            resObject[key] = value;
+         }
+         res.status(200).send(resObject);
       }
    }
 });
+
+//get hash table fliel value
+function getKeys(sensorName) {
+   return new Promise((resolve) => {
+      client.hkeys(sensorName, function (err, keys) {
+         resolve(keys);
+      });
+   });
+}
+
+//get hash table fliel value
+function getValue(sensorName, key) {
+   return new Promise((resolve, reject) => {
+      client.hget(sensorName, key, function (err, value) {
+         if (err) reject(err);
+         resolve(JSON.parse(value));
+      });
+   });
+}

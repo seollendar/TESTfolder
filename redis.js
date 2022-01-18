@@ -39,30 +39,33 @@ client.hmset('codigm', {
 
 client.hset("codigm", "goormIDE", "2", redis.print); //Reply: 1
 //client.hset(['Hash Key', 'HashTest 2', '2'], redis.print); //Reply: 1            // 해시 테이블 추가 및 결과 출력
-
-client.hget("codigm", "goormIDE", function (err, value) {
-   // codigm의 해시테이블에서 goormIDE 값 가져오기
-   if (err) throw err;
-   console.log("goormIDE is : " + value); //goormIDE is : cloud service       // 해당 값 출력
-});
-/*
-client.hkeys('codigm', function(err,keys) {            // codigm의 해시테이블 모든 키 데이터 가져오기
-    if(err) throw err;
-    keys.forEach(function(key, i) {
-        console.log('codigm ' + i + ' : ' + key );
-    });
-	//codigm 0 : goormIDE
-	//codigm 1 : goormEDU
-});
 */
 
+// client.hget("power", "mq", function (err, value) {
+//    // codigm의 해시테이블에서 goormIDE 값 가져오기
+//    if (err) throw err;
+//    console.log("mq is : " + value); //goormIDE is : cloud service       // 해당 값 출력
+// });
+
+// client.hkeys("power", function (err, keys) {
+//    // 해시테이블 모든 키 데이터 가져오기
+//    if (err) throw err;
+//    keys.forEach(function (key, i) {
+//       console.log(i + " : " + key);
+//    });
+//    //codigm 0 : goormIDE
+//    //codigm 1 : goormEDU
+// });
+
+//client.lrem("SensorGroup", -1, "power");
 //LIST
 //client.lpush("tasks", "Node.js", redis.print); // 리스트에 값 추가
 //client.lpush("tasks", "Redis", redis.print);
-//client.lrem("task", -1);
-//client.DEL("tasks", redis.print);
-client.LREM("tasks", -1, "Redis");
-client.lrange("tasks", 0, -1, function (err, items) {
+/*
+client.lrem("SensorGroup", 0, "power", redis.print);
+//client.DEL("power", redis.print);
+// client.LREM("tasks", -1, "Redis");
+client.lrange("SensorGroup", 0, -1, function (err, items) {
    // 시작, 종료인자 이용해 리스트 항목 가져오기
    // -1는 리스트의 마지막 항목 의미, 즉 다 가져오기
    if (err) throw err;
@@ -70,11 +73,10 @@ client.lrange("tasks", 0, -1, function (err, items) {
       console.log("list " + i + " : " + item);
    });
 });
+*/
 
-/*
 //DEL: 입력한 키를 삭제한다.
-client.DEL("tasks", redis.print);
+client.DEL("temper", redis.print);
 
 //HDEL: 입력한 해시 키 밑에 필드를 삭제한다.
-client.HDEL("myhashkey1", "field1", redis.print);
-*/
+client.HDEL("temper", "field1", redis.print);
