@@ -22,28 +22,27 @@ const { tryJSONparse } = require("./lib");
 /*
  * POST sensor Creation
  */
-let sensorNameList = [];
 app.post("/DigitalConnector/SensorGroup", function (req, res) {
    let fullBody = "";
    req.on("data", function (chunk) {
       fullBody += chunk;
    });
 
-   req.on("end", function () {
+   req.on("end", async function () {
       let messageObject = fullBody;
       if (tryJSONparse(messageObject)) {
          sensorNameObj = tryJSONparse(messageObject);
          if (sensorNameObj?.name && sensorNameObj?.mq) {
-            let hasSensorName = sensorNameList.some(
-               (sensor) => sensor === sensorNameObj.name
+            const flag = await checkSensorNameExist(sensorNameObj.name).then(
+               function (flag) {
+                  return flag;
+               }
             );
-            if (hasSensorName) {
+            if (flag) {
                res.status(500).send("sensor is already exist");
             } else {
                const sensorName = sensorNameObj.name;
-               console.log("name: ", sensorName);
                client.rpush("SensorGroup", sensorName);
-               sensorNameList.push(sensorNameObj.name);
                const sensorFields = Object.keys(sensorNameObj);
                for (var i = 0; i < sensorFields.length; i++) {
                   const field = sensorFields[i];
@@ -71,13 +70,11 @@ app.post("/DigitalConnector/SensorGroup", function (req, res) {
  * sensorGroup Retrieve
  */
 app.get("/DigitalConnector/SensorGroup", async (req, res) => {
-   client.lrange("SensorGroup", 0, -1, function (err, keys) {
-      if (err) throw err;
-      // const SensorList = keys.map((v) => {
-      //    return JSON.parse(v);
-      // });
-      res.send({ SensorList: keys });
+   let SensorNameList = await getSensorNameList().then((List) => {
+      return List;
    });
+
+   res.send({ SensorList: SensorNameList });
 });
 
 /*
@@ -89,7 +86,6 @@ app.delete("/DigitalConnector/SensorGroup", async (req, res) => {
    });
 
    client.DEL("SensorGroup");
-   sensorNameList = [];
    res.send({ deleted: resLength });
 });
 //get hash table flield count
@@ -98,7 +94,6 @@ function getListLength_delete() {
       client.lrange("SensorGroup", 0, -1, function (err, keys) {
          if (err) throw err;
          keys.forEach((key) => {
-            console.log(key, "delete");
             client.DEL(key);
          });
 
@@ -106,6 +101,75 @@ function getListLength_delete() {
       });
    });
 }
+
+function getSensorNameList() {
+   return new Promise((resolve) => {
+      client.lrange("SensorGroup", 0, -1, function (err, keys) {
+         if (err) throw err;
+         resolve(keys);
+      });
+   });
+}
+async function checkSensorNameExist(SensorName) {
+   let SensorNameList = await getSensorNameList().then((List) => {
+      return List;
+   });
+   let flag = false;
+   return new Promise((resolve, reject) => {
+      for (i in SensorNameList) {
+         if (SensorNameList[i] == SensorName) {
+            flag = true;
+         }
+      }
+      resolve(flag);
+   });
+}
+/*
+ * PUT(update) sensor Creation
+ */
+
+app.put("/DigitalConnector/SensorGroup", function (req, res) {
+   let fullBody = "";
+   req.on("data", function (chunk) {
+      fullBody += chunk;
+   });
+
+   req.on("end", async function () {
+      let messageObject = fullBody;
+      if (tryJSONparse(messageObject)) {
+         sensorNameObj = tryJSONparse(messageObject);
+         if (sensorNameObj?.name && sensorNameObj?.mq) {
+            const flag = await checkSensorNameExist(sensorNameObj.name).then(
+               function (flag) {
+                  return flag;
+               }
+            );
+            if (!flag) {
+               res.status(500).send("Unregistered sensor.");
+            } else {
+               const sensorName = sensorNameObj.name;
+               const sensorFields = Object.keys(sensorNameObj);
+               for (var i = 0; i < sensorFields.length; i++) {
+                  const field = sensorFields[i];
+                  if (sensorFields[i] != "name") {
+                     client.hset(
+                        sensorNameObj.name,
+                        sensorFields[i],
+                        JSON.stringify(sensorNameObj[field])
+                     );
+                  }
+               }
+
+               res.status(200).send("update sensorGroup");
+            }
+         } else {
+            res.status(500).send("please check mandatory field");
+         }
+      } else {
+         res.status(500).send("is not a json structure");
+      }
+   });
+});
 
 /*
  * sensor Data Creation
@@ -170,20 +234,16 @@ app.delete("/DigitalConnector/SensorGroup/:sensorName", async (req, res) => {
    if (!req.params?.sensorName) {
       res.status(500).send("please check sensorName parameter");
    } else {
-      let hasSensorName = sensorNameList.some(
-         (sensor) => sensor === req.params.sensorName
+      const flag = await checkSensorNameExist(req.params.sensorName).then(
+         function (flag) {
+            return flag;
+         }
       );
-      if (!hasSensorName) {
-         res.send("Unregistered sensor.");
+      if (!flag) {
+         res.status(500).send("Unregistered sensor.");
       } else {
          client.DEL(req.params.sensorName, redis.print);
          client.lrem("SensorGroup", -1, req.params.sensorName);
-         for (let sI = 0; sI < sensorNameList.length; sI++) {
-            if (sensorNameList[sI] == req.params.sensorName) {
-               sensorNameList.splice(sI, 1);
-               sI--;
-            }
-         }
          res.send({ success: 1 });
       }
    }

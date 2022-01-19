@@ -15,11 +15,12 @@ client.on("error", function (err) {
 //*** 이미 key가 있으면 업데이트 됨
 /*
 client.set('String Key', 'String Value', redis.print);  // redis.print : 수행결과 출력 혹은 오류 출력. redis.print는 없어도 상관없음. 없으면 결과 출력은 되지 않고 값만 저장
-client.get('String Key', function(err, value){
-    if(err) throw err;
-    console.log(value);
-});
 */
+
+client.get("DO1", function (err, value) {
+   if (err) throw err;
+   console.log(value);
+});
 
 /*
 {
@@ -64,8 +65,16 @@ client.hset("codigm", "goormIDE", "2", redis.print); //Reply: 1
 /*
 client.lrem("SensorGroup", 0, "power", redis.print);
 //client.DEL("power", redis.print);
-// client.LREM("tasks", -1, "Redis");
-client.lrange("SensorGroup", 0, -1, function (err, items) {
+*/
+client.LREM("DOname", -1, "DO1");
+
+//DEL: 입력한 키를 삭제한다.
+//client.DEL("DOname", redis.print);
+
+//HDEL: 입력한 해시 키 밑에 필드를 삭제한다.
+//client.HDEL("temper", "field1", redis.print);
+
+client.lrange("DOname", 0, -1, function (err, items) {
    // 시작, 종료인자 이용해 리스트 항목 가져오기
    // -1는 리스트의 마지막 항목 의미, 즉 다 가져오기
    if (err) throw err;
@@ -73,10 +82,3 @@ client.lrange("SensorGroup", 0, -1, function (err, items) {
       console.log("list " + i + " : " + item);
    });
 });
-*/
-
-//DEL: 입력한 키를 삭제한다.
-client.DEL("temper", redis.print);
-
-//HDEL: 입력한 해시 키 밑에 필드를 삭제한다.
-client.HDEL("temper", "field1", redis.print);
