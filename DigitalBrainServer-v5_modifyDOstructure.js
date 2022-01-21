@@ -10,6 +10,7 @@ app.listen(1005, () => {
    console.log("Server Start on port 1005");
 });
 const { tryJSONparse } = require("./lib");
+let Options = config.ksqlOptions;
 const redis = require("redis");
 const Rclient = redis.createClient({
    port: config.redis.port,
@@ -38,7 +39,7 @@ client.on("error", (error) => {
  * DO Creation
  */
 app.post("/DigitalTwin/DO", async function (req, res) {
-   var fullBody = "";
+   let fullBody = "";
    req.on("data", function (chunk) {
       fullBody += chunk;
    });
@@ -51,8 +52,7 @@ app.post("/DigitalTwin/DO", async function (req, res) {
             DOWholeData?.sensor &&
             DOWholeData.sensor.length > 0
          ) {
-            //
-            const flag = await checkDOnameExist(DOWholeData.name).then(
+            const flag = await checkNameExist(DOWholeData.name, "DO").then(
                function (flag) {
                   return flag;
                }
@@ -61,10 +61,10 @@ app.post("/DigitalTwin/DO", async function (req, res) {
                res.status(500).send("DO is already exist");
             } else {
                const DOName = DOWholeData.name;
-               Rclient.rpush("DOname", DOName);
+               Rclient.rpush("DO", DOName);
                const DOobject = CheckKeyExistAndAddCount(DOWholeData);
                Rclient.set(DOName, JSON.stringify(DOobject));
-
+               CreateDOksqlStream(DOobject);
                res.status(200).send(DOobject);
             }
          } else {
@@ -76,22 +76,22 @@ app.post("/DigitalTwin/DO", async function (req, res) {
    });
 });
 
-function getDOnameList() {
+function getNameList(key) {
    return new Promise((resolve) => {
-      Rclient.lrange("DOname", 0, -1, function (err, keys) {
+      Rclient.lrange(key, 0, -1, function (err, keys) {
          if (err) throw err;
          resolve(keys);
       });
    });
 }
-async function checkDOnameExist(DOname) {
-   let DOnameList = await getDOnameList().then((List) => {
+async function checkNameExist(Name, key) {
+   let NameList = await getNameList(key).then((List) => {
       return List;
    });
    let flag = false;
    return new Promise((resolve, reject) => {
-      for (i in DOnameList) {
-         if (DOnameList[i] == DOname) {
+      for (i in NameList) {
+         if (NameList[i] == Name) {
             flag = true;
          }
       }
@@ -101,7 +101,6 @@ async function checkDOnameExist(DOname) {
 function CheckKeyExistAndAddCount(DOWholeData) {
    if (Object.keys(DOWholeData).some((v) => v == "sensor")) {
       DOWholeData.sensorCount = DOWholeData.sensor.length;
-      //DigitalConnectorAlarm(DOWholeData);
    }
    if (Object.keys(DOWholeData).some((v) => v == "control")) {
       DOWholeData.controlCount = DOWholeData.control.length;
@@ -110,25 +109,13 @@ function CheckKeyExistAndAddCount(DOWholeData) {
    return DOWholeData;
 }
 
-function DigitalConnectorAlarm(DOWholeData) {
-   var req = unirest("POST", "localhost:1203/DigitalConnector/DO")
-      .headers({
-         "Content-Type": "application/json",
-      })
-      .send(JSON.stringify(DOWholeData))
-      .end(function (res) {
-         if (res.error) throw new Error(res.error);
-         console.log(res.raw_body);
-      });
-}
-
 /*
  * DO Retrieve
  */
 app.get("/DigitalTwin/:DOName", async (req, res) => {
    if (req.params.DOName) {
       let DOName = req.params.DOName;
-      const flag = await checkDOnameExist(DOName).then(function (flag) {
+      const flag = await checkNameExist(DOName, "DO").then(function (flag) {
          return flag;
       });
       if (flag) {
@@ -151,12 +138,12 @@ app.get("/DigitalTwin/:DOName", async (req, res) => {
 app.delete("/DigitalTwin/:DOName", async (req, res) => {
    if (req.params.DOName) {
       let DOName = req.params.DOName;
-      const flag = await checkDOnameExist(DOName).then(function (flag) {
+      const flag = await checkNameExist(DOName, "DO").then(function (flag) {
          return flag;
       });
       if (flag) {
          Rclient.DEL(DOName);
-         Rclient.LREM("DOname", -1, DOName);
+         Rclient.LREM("DO", -1, DOName);
          res.send({ success: 1 });
       } else {
          res.status(200).send("Unregistered DO");
@@ -179,8 +166,12 @@ app.put("/DigitalTwin/DO", async (req, res) => {
    req.on("end", async function () {
       if (tryJSONparse(fullBody)) {
          DOWholeData = tryJSONparse(fullBody);
-         if (DOWholeData?.name && DOWholeData?.sensor) {
-            const flag = await checkDOnameExist(DOWholeData.name).then(
+         if (
+            DOWholeData?.name &&
+            DOWholeData?.sensor &&
+            DOWholeData.sensor.length > 0
+         ) {
+            const flag = await checkNameExist(DOWholeData.name, "DO").then(
                function (flag) {
                   return flag;
                }
@@ -192,7 +183,7 @@ app.put("/DigitalTwin/DO", async (req, res) => {
                const DOobject = CheckKeyExistAndAddCount(DOWholeData);
                console.log("DO: ", DOobject);
                Rclient.set(DOName, JSON.stringify(DOobject));
-
+               postDOobjectToKSQL(DOobject); //post DOobject
                res.status(200).send("update DO");
             }
          } else {
@@ -204,54 +195,436 @@ app.put("/DigitalTwin/DO", async (req, res) => {
    });
 });
 
+//========================================================================>> SERVICE
 /*
- * sensor Creation
+ * service Creation
  */
-app.post("/DigitalTwin/:DOName/sensor", function (req, res) {
-   var fullBody = "";
+app.post("/DigitalTwin/service", function (req, res) {
+   let fullBody = "",
+      DataObject = "";
    req.on("data", function (chunk) {
       fullBody += chunk;
    });
 
-   req.on("end", function () {
-      let DOName = req.params.DOName;
-      var sensorNameObject;
-      sensorNameObject = JSON.parse(fullBody);
-
-      if (DONameList.includes(DOName)) {
-         DOWholeDataList.forEach((element, index) => {
-            if (element.name == DOName) {
-               if (element.sensor) {
-                  var filtered = where(element.sensor, {
-                     name: sensorNameObject.name,
-                  });
-                  if (filtered[0]) {
-                     res.status(400).send("Sensor is already exist");
-                     console.log("same name exist: ", filtered[0]);
-                     console.log("element: ", element);
-                  } else {
-                     res.status(200).send("Received Sensor Data");
-                     element.sensor.push(sensorNameObject);
-                     element.sensorCount++;
-                     console.log("push: ", element);
-                  }
-               } else {
-                  res.status(200).send("Received Sensor Data");
-                  console.log("sensor does not exist");
-                  element.sensor = [sensorNameObject];
-                  element.sensorCount = 1;
-                  console.log(
-                     "sensor push: ",
-                     util.inspect(element, false, null, true)
+   req.on("end", async function () {
+      if (tryJSONparse(fullBody)) {
+         DataObject = tryJSONparse(fullBody);
+         if (
+            DataObject?.name &&
+            DataObject?.arg &&
+            DataObject.arg.length > 0 &&
+            DataObject?.url
+         ) {
+            const flag = await checkNameExist(DataObject.name, "service").then(
+               function (flag) {
+                  return flag;
+               }
+            );
+            if (flag) {
+               res.status(500).send("is already exist");
+            } else {
+               const service = DataObject.name;
+               Rclient.rpush("service", service);
+               const sensorFields = Object.keys(DataObject);
+               for (var i = 0; i < sensorFields.length; i++) {
+                  const field = sensorFields[i];
+                  Rclient.hset(
+                     `service_${DataObject.name}`,
+                     sensorFields[i],
+                     JSON.stringify(DataObject[field])
                   );
                }
+               res.status(200).send("successfully registered");
             }
-         });
+         } else {
+            res.status(500).send("please check mandatory field");
+         }
       } else {
-         res.status(404).send("DO does not exist");
+         res.status(500).send("is not a json structure");
       }
    });
 });
+
+/*
+ * service Update
+ */
+app.put("/DigitalTwin/service", function (req, res) {
+   let fullBody = "",
+      DataObject = "";
+   req.on("data", function (chunk) {
+      fullBody += chunk;
+   });
+
+   req.on("end", async function () {
+      if (tryJSONparse(fullBody)) {
+         DataObject = tryJSONparse(fullBody);
+         if (
+            DataObject?.name &&
+            DataObject?.arg &&
+            DataObject.arg.length > 0 &&
+            DataObject?.url
+         ) {
+            const flag = await checkNameExist(DataObject.name, "service").then(
+               function (flag) {
+                  return flag;
+               }
+            );
+            if (!flag) {
+               res.status(500).send("Unregistered service");
+            } else {
+               const service = DataObject.name;
+               const sensorFields = Object.keys(DataObject);
+               for (var i = 0; i < sensorFields.length; i++) {
+                  const field = sensorFields[i];
+                  Rclient.hset(
+                     `service_${DataObject.name}`,
+                     sensorFields[i],
+                     JSON.stringify(DataObject[field])
+                  );
+               }
+               res.status(200).send("successfully update");
+            }
+         } else {
+            res.status(500).send("please check mandatory field");
+         }
+      } else {
+         res.status(500).send("is not a json structure");
+      }
+   });
+});
+//get hash table
+function getKeys(Name) {
+   return new Promise((resolve) => {
+      Rclient.hkeys(Name, function (err, keys) {
+         resolve(keys);
+      });
+   });
+}
+//get hash table fliel value
+function getValue(Name, key) {
+   return new Promise((resolve, reject) => {
+      Rclient.hget(Name, key, function (err, value) {
+         if (err) reject(err);
+         resolve(JSON.parse(value));
+      });
+   });
+}
+/*
+ * service Retrieve
+ */
+app.get("/DigitalTwin/service/:serviceName", async (req, res) => {
+   if (req.params.serviceName) {
+      let serviceName = req.params.serviceName;
+      const flag = await checkNameExist(serviceName, "service").then(function (
+         flag
+      ) {
+         return flag;
+      });
+      if (flag) {
+         const keys = await getKeys(`service_${req.params.serviceName}`).then(
+            function (keys) {
+               return keys;
+            }
+         );
+
+         let resObject = {};
+         for (let key of keys) {
+            const value = await getValue(
+               `service_${req.params.serviceName}`,
+               key
+            );
+            resObject[key] = value;
+         }
+         res.status(200).send(resObject);
+      } else {
+         res.status(200).send("Unregistered service");
+      }
+   } else {
+      res.status(404).send("Bad Request");
+      console.log("input value error");
+   }
+});
+
+/*
+ * service delete
+ */
+app.delete("/DigitalTwin/service/:serviceName", async (req, res) => {
+   if (req.params.serviceName) {
+      let serviceName = req.params.serviceName;
+      const flag = await checkNameExist(serviceName, "service").then(function (
+         flag
+      ) {
+         return flag;
+      });
+      if (flag) {
+         Rclient.DEL(`service_${req.params.serviceName}`);
+         Rclient.LREM("service", -1, req.params.serviceName);
+         res.send({ success: 1 });
+      } else {
+         res.status(200).send("Unregistered service");
+      }
+   } else {
+      res.status(404).send("Bad Request");
+      console.log("input value error");
+   }
+});
+
+/*
+ * service Trigger
+ */
+app.post("/DigitalTwin/service/trigger", function (req, res) {
+   let fullBody = "",
+      DataObject = "",
+      resObject = {};
+   req.on("data", function (chunk) {
+      fullBody += chunk;
+   });
+
+   req.on("end", async function () {
+      if (tryJSONparse(fullBody)) {
+         DataObject = tryJSONparse(fullBody);
+         if (DataObject?.name) {
+            const flag = await checkNameExist(DataObject.name, "service").then(
+               function (flag) {
+                  return flag;
+               }
+            );
+            if (flag) {
+               const keys = await getKeys(`service_${DataObject.name}`).then(
+                  function (keys) {
+                     return keys;
+                  }
+               );
+               for (let key of keys) {
+                  const value = await getValue(
+                     `service_${DataObject.name}`,
+                     key
+                  );
+                  resObject[key] = value;
+               }
+               CreateSinkConnector(resObject);
+               res.status(200).send(resObject);
+            } else {
+               res.status(200).send("Unregistered service");
+            }
+         } else {
+            res.status(500).send("please check mandatory field");
+         }
+      } else {
+         res.status(500).send("is not a json structure");
+      }
+   });
+});
+
+//=======================================================================================>> simulation
+
+/*
+ * simulation Creation
+ */
+app.post("/DigitalTwin/simulation", function (req, res) {
+   let fullBody = "",
+      DataObject = "";
+   req.on("data", function (chunk) {
+      fullBody += chunk;
+   });
+
+   req.on("end", async function () {
+      if (tryJSONparse(fullBody)) {
+         DataObject = tryJSONparse(fullBody);
+         if (
+            DataObject?.name &&
+            DataObject?.arg &&
+            DataObject.arg.length > 0 &&
+            DataObject?.url
+         ) {
+            const flag = await checkNameExist(
+               DataObject.name,
+               "simulation"
+            ).then(function (flag) {
+               return flag;
+            });
+            if (flag) {
+               res.status(500).send("is already exist");
+            } else {
+               const simulation = DataObject.name;
+               Rclient.rpush("simulation", simulation);
+               const sensorFields = Object.keys(DataObject);
+               for (var i = 0; i < sensorFields.length; i++) {
+                  const field = sensorFields[i];
+                  Rclient.hset(
+                     `simulation_${DataObject.name}`,
+                     sensorFields[i],
+                     JSON.stringify(DataObject[field])
+                  );
+               }
+               res.status(200).send("successfully registered");
+            }
+         } else {
+            res.status(500).send("please check mandatory field");
+         }
+      } else {
+         res.status(500).send("is not a json structure");
+      }
+   });
+});
+
+/*
+ * simulation Update
+ */
+app.put("/DigitalTwin/simulation", function (req, res) {
+   let fullBody = "",
+      DataObject = "";
+   req.on("data", function (chunk) {
+      fullBody += chunk;
+   });
+
+   req.on("end", async function () {
+      if (tryJSONparse(fullBody)) {
+         DataObject = tryJSONparse(fullBody);
+         if (
+            DataObject?.name &&
+            DataObject?.arg &&
+            DataObject.arg.length > 0 &&
+            DataObject?.url
+         ) {
+            const flag = await checkNameExist(
+               DataObject.name,
+               "simulation"
+            ).then(function (flag) {
+               return flag;
+            });
+            if (!flag) {
+               res.status(500).send("Unregistered simulation");
+            } else {
+               const simulation = DataObject.name;
+               const sensorFields = Object.keys(DataObject);
+               for (var i = 0; i < sensorFields.length; i++) {
+                  const field = sensorFields[i];
+                  Rclient.hset(
+                     `simulation_${DataObject.name}`,
+                     sensorFields[i],
+                     JSON.stringify(DataObject[field])
+                  );
+               }
+               res.status(200).send("successfully update");
+            }
+         } else {
+            res.status(500).send("please check mandatory field");
+         }
+      } else {
+         res.status(500).send("is not a json structure");
+      }
+   });
+});
+
+/*
+ * simulation Retrieve
+ */
+app.get("/DigitalTwin/simulation/:simulationName", async (req, res) => {
+   if (req.params.simulationName) {
+      let simulationName = req.params.simulationName;
+      const flag = await checkNameExist(simulationName, "simulation").then(
+         function (flag) {
+            return flag;
+         }
+      );
+      if (flag) {
+         const keys = await getKeys(
+            `simulation_${req.params.simulationName}`
+         ).then(function (keys) {
+            return keys;
+         });
+
+         let resObject = {};
+         for (let key of keys) {
+            const value = await getValue(
+               `simulation_${req.params.simulationName}`,
+               key
+            );
+            resObject[key] = value;
+         }
+         res.status(200).send(resObject);
+      } else {
+         res.status(200).send("Unregistered simulation");
+      }
+   } else {
+      res.status(404).send("Bad Request");
+      console.log("input value error");
+   }
+});
+
+/*
+ * simulation delete
+ */
+app.delete("/DigitalTwin/simulation/:simulationName", async (req, res) => {
+   if (req.params.simulationName) {
+      let simulationName = req.params.simulationName;
+      const flag = await checkNameExist(simulationName, "simulation").then(
+         function (flag) {
+            return flag;
+         }
+      );
+      if (flag) {
+         Rclient.DEL(`simulation_${req.params.simulationName}`);
+         Rclient.LREM("simulation", -1, req.params.simulationName);
+         res.send({ success: 1 });
+      } else {
+         res.status(200).send("Unregistered simulation");
+      }
+   } else {
+      res.status(404).send("Bad Request");
+      console.log("input value error");
+   }
+});
+
+/*
+ * simulation Trigger
+ */
+app.post("/DigitalTwin/simulation/trigger", function (req, res) {
+   let fullBody = "",
+      DataObject = "",
+      resObject = {};
+   req.on("data", function (chunk) {
+      fullBody += chunk;
+   });
+
+   req.on("end", async function () {
+      if (tryJSONparse(fullBody)) {
+         DataObject = tryJSONparse(fullBody);
+         if (DataObject?.name) {
+            const flag = await checkNameExist(
+               DataObject.name,
+               "simulation"
+            ).then(function (flag) {
+               return flag;
+            });
+            if (flag) {
+               const keys = await getKeys(`simulation_${DataObject.name}`).then(
+                  function (keys) {
+                     return keys;
+                  }
+               );
+               for (let key of keys) {
+                  const value = await getValue(
+                     `simulation_${DataObject.name}`,
+                     key
+                  );
+                  resObject[key] = value;
+               }
+               CreateSinkConnector(resObject);
+               res.status(200).send(resObject);
+            } else {
+               res.status(200).send("Unregistered simulation");
+            }
+         } else {
+            res.status(500).send("please check mandatory field");
+         }
+      } else {
+         res.status(500).send("is not a json structure");
+      }
+   });
+});
+//=======================================================================>> control
 
 /*
  * control Creation
@@ -462,106 +835,6 @@ app.put("/DigitalTwin/:DOName/:controlName", function (req, res) {
 });
 
 /*
- * simulation Creation
- * localhost:1005/DigitalTwin/:DOName/simulation?mqtt=enable
- */
-app.post("/DigitalTwin/:DOName/simulation", function (req, res) {
-   var fullBody = "";
-   req.on("data", function (chunk) {
-      fullBody += chunk;
-   });
-
-   req.on("end", function () {
-      let DOName = req.params.DOName;
-      var simulationNameObject;
-      simulationNameObject = JSON.parse(fullBody);
-      if (req.query?.mqtt) {
-         PushsimulationMQTTpubList(
-            DOSIMmqttPubObjList,
-            DOName,
-            simulationNameObject.name
-         );
-      }
-
-      if (DONameList.includes(DOName)) {
-         console.log("body: ", simulationNameObject, "DOName: ", DOName);
-         DOWholeDataList.forEach((element, index) => {
-            if (element.name == DOName) {
-               if (element.simulation) {
-                  var filtered = where(element.simulation, {
-                     name: simulationNameObject.name,
-                  });
-                  if (filtered[0]) {
-                     res.status(400).send("simulation is already exist");
-                     console.log("same name exist: ", filtered[0]);
-                     console.log("element: ", element);
-                  } else {
-                     res.status(200).send("Received simulation Data");
-                     element.simulation.push(simulationNameObject);
-                     element.simulationCount++;
-                     console.log("push: ", element);
-                  }
-               } else {
-                  res.status(200).send("Received simulation Data");
-                  element.simulation = [simulationNameObject];
-                  element.simulationCount = 1;
-                  console.log(
-                     "simulation push: ",
-                     util.inspect(element, false, null, true)
-                  );
-               }
-            }
-         });
-      } else {
-         res.status(404).send("DO does not exist");
-      }
-   });
-});
-
-function PushsimulationMQTTpubList(DOSIMmqttPubObjList, DOName, simName) {
-   //console.log("DOSIMmqttPubObjList: ", DOSIMmqttPubObjList);
-   //console.log("DOName: ", DOName, "simName: ",simName);
-   DOSIMmqttPubObjList?.[DOName]?.push(simName);
-   //console.log("DOSIMmqttPubObjList: ", DOSIMmqttPubObjList);
-}
-
-/*
- * sensor delete
- */
-app.delete("/DigitalTwin/:DOName/sensor/:sensorName", (req, res) => {
-   let DOName = req.params.DOName;
-   let sensorName = req.params.sensorName;
-   //console.log(DOName, sensorName);
-   if (DONameList.includes(DOName)) {
-      DOWholeDataList.forEach((element, index) => {
-         if (element.name == DOName) {
-            if (element.sensor) {
-               var filtered = where(element.sensor, { name: sensorName });
-               if (filtered[0]) {
-                  var sensorIndex = element.sensor.findIndex(
-                     (i) => i.name == sensorName
-                  );
-                  element.sensor.splice(sensorIndex, 1);
-                  element.sensorCount--;
-                  //console.log("element: ", util.inspect(element, false, null, true));
-                  res.status(200).send(`sensor ${sensorName} delete`);
-               } else {
-                  res.status(200).send("sensor does not exist");
-                  //console.log("element: ", util.inspect(element, false, null, true));
-               }
-            } else {
-               res.status(404).send("sensor object does not exist");
-               console.log("sensor does not exist");
-               //console.log("element: ", util.inspect(element, false, null, true));
-            }
-         }
-      });
-   } else {
-      res.status(404).send("DO does not exist");
-   }
-});
-
-/*
  * control delete
  */
 app.delete("/DigitalTwin/:DOName/control/:controlName", (req, res) => {
@@ -607,267 +880,16 @@ app.delete("/DigitalTwin/:DOName/control/:controlName", (req, res) => {
    }
 });
 
-/*
- * simulation delete
- */
-app.delete("/DigitalTwin/:DOName/simulation/:simulationName", (req, res) => {
-   let DOName = req.params.DOName;
-   let simulationName = req.params.simulationName;
-   console.log(DOName, simulationName);
-   if (DONameList.includes(DOName)) {
-      DOWholeDataList.forEach((element, index) => {
-         if (element.name == DOName) {
-            if (element.simulation) {
-               var filtered = where(element.simulation, {
-                  name: simulationName,
-               });
-               if (filtered[0]) {
-                  var simulationIndex = element.simulation.findIndex(
-                     (i) => i.name == simulationName
-                  );
-                  element.simulation.splice(simulationIndex, 1);
-                  element.simulationCount--;
-                  console.log(
-                     "element: ",
-                     util.inspect(element, false, null, true)
-                  );
-                  res.status(200).send(`simulation ${simulationName} delete`);
-               } else {
-                  console.log(
-                     "element: ",
-                     util.inspect(element, false, null, true)
-                  );
-                  res.status(200).send("simulation does not exist");
-               }
-            } else {
-               res.status(404).send("simulation object does not exist");
-               console.log("simulation does not exist");
-               console.log(
-                  "element: ",
-                  util.inspect(element, false, null, true)
-               );
-            }
-         }
-      });
-   } else {
-      res.status(404).send("DO does not exist");
-   }
-});
+//=============================================================================> KAFKA SINK
+const url = require("url");
+const http = require("http");
+const POST = "post";
+const GET = "get";
+const DELETE = "delete";
+const PUT = "put";
 
-/*
- * Simulation Trigger
- */
-app.post("/DigitalTwin/:DOName/simulationTrigger", function (req, res) {
-   var fullBody = "";
-   req.on("data", function (chunk) {
-      fullBody += chunk;
-   });
-
-   req.on("end", function () {
-      let DOName = req.params.DOName;
-      var simulationDataObject;
-      simulationDataObject = JSON.parse(fullBody);
-      if (simulationDataObject.simargs) {
-         // console.log("simulationDataObject: ", util.inspect(simulationDataObject, false, null, true));
-
-         if (DONameList.includes(DOName)) {
-            //console.log("body: ", simulationDataObject, "DOName: ", DOName);
-            DOWholeDataList.forEach((element, index) => {
-               if (element.name == DOName) {
-                  if (element.simulation) {
-                     var filtered = where(element.simulation, {
-                        name: simulationDataObject.name,
-                     });
-                     if (filtered[0]) {
-                        //data로 받은 simulation name과 같은 객체
-                        res.status(200).send("Received simulation Data");
-                        //console.log("element: ", util.inspect(filtered[0], false, null, true));
-
-                        var simargsObject = {};
-                        simargsObject.simargs = simulationDataObject.simargs;
-                        simargsObject.result = null;
-                        simargsObject.ts = Date.now();
-                        if (filtered[0].sim) {
-                           //simulation[(element.name == DOName)].sim이 있으면
-                           filtered[0].sim.push(simargsObject);
-                           var fifoSimulationDataPushArray = new FifoArray(
-                              5,
-                              filtered[0].sim
-                           );
-                           filtered[0].sim = fifoSimulationDataPushArray;
-                           //console.log("create sim tag & push data: \n", util.inspect(DOWholeDataList, false, null, true));
-
-                           //MQTT PUB
-                           var simulationDataSet = { ...simargsObject };
-                           simulationDataSet.DO = DOName;
-                           simulationDataSet.sim = simulationDataObject.name;
-                           simulationDataSet.result = null;
-                           var simulationDataSetToString =
-                              JSON.stringify(simulationDataSet);
-                           client.publish(
-                              "sim_send",
-                              simulationDataSetToString
-                           );
-                        } else {
-                           //simulation[(element.name == DOName)].sim이 없으면
-                           filtered[0].sim = [simargsObject];
-                           //console.log("push data: \n", util.inspect(DOWholeDataList, false, null, true));
-
-                           //MQTT PUB
-                           var simulationDataSet = { ...simargsObject };
-                           simulationDataSet.DO = DOName;
-                           simulationDataSet.sim = simulationDataObject.name;
-                           simulationDataSet.result = null;
-                           var simulationDataSetToString =
-                              JSON.stringify(simulationDataSet);
-                           client.publish(
-                              "sim_send",
-                              simulationDataSetToString
-                           );
-                        }
-                     } else {
-                        //req로 받은  simulation name이 존재하지 않음
-                        res.status(404).send(
-                           "This simulation name does not exist"
-                        );
-                        console.log(
-                           "This simulation name does not exist: ",
-                           util.inspect(element, false, null, true)
-                        );
-                     }
-                  } else {
-                     //DO에 simulation이 생성돼있지 않음
-                     console.log(
-                        "simulation does not exist: ",
-                        util.inspect(element, false, null, true)
-                     );
-                     res.status(404).send("simulation does not exist");
-                  }
-               }
-            });
-         } else {
-            res.status(404).send("DO does not exist");
-         }
-      } else {
-         res.status(404).send("simargs does not exist");
-      }
-   });
-});
-
-/*
- * Simulation Trigger result version
- */
-app.post("/DigitalTwin/:DOName/simulationResult", function (req, res) {
-   var fullBody = "";
-   req.on("data", function (chunk) {
-      fullBody += chunk;
-   });
-
-   req.on("end", function () {
-      let DOName = req.params.DOName;
-      var simulationDataObject;
-      simulationDataObject = JSON.parse(fullBody);
-      if (simulationDataObject.simargs) {
-         if (DONameList.includes(DOName)) {
-            DOWholeDataList.forEach((element, index) => {
-               if (element.name == DOName) {
-                  if (element.simulation) {
-                     var filtered = where(element.simulation, {
-                        name: simulationDataObject.name,
-                     });
-                     if (filtered[0]) {
-                        res.status(200).send("Received simulation Data");
-                        //console.log("element: ", util.inspect(filtered[0], false, null, true));
-                        var simargsObject = {};
-                        if (simulationDataObject.ts) {
-                           simargsObject = { ...simulationDataObject };
-                           delete simargsObject.name;
-                        } else {
-                           simargsObject.simargs = simulationDataObject.simargs;
-                           simargsObject.result = simulationDataObject.result;
-                           simargsObject.ts = Date.now();
-                        }
-
-                        if (filtered[0].sim) {
-                           //console.log("simargsObject: ", simargsObject);
-                           filtered[0].sim.push(simargsObject);
-                           var fifoSimulationDataPushArray = new FifoArray(
-                              5,
-                              filtered[0].sim
-                           );
-                           filtered[0].sim = fifoSimulationDataPushArray;
-                           //console.log("create sim tag & push data: \n", util.inspect(DOWholeDataList, false, null, true));
-
-                           //MQTT PUB (optional)
-                           let enableOption = checkEnableOption(
-                              DOSIMmqttPubObjList,
-                              DOName,
-                              simulationDataObject.name
-                           );
-                           if (enableOption) {
-                              //console.log("MQTT push : \n", util.inspect(element, false, null, true));
-                              var DOWholeDataListToString =
-                                 JSON.stringify(element);
-                              client.publish(
-                                 "dp_do_data",
-                                 DOWholeDataListToString
-                              ); //send string text!
-                              Rclient.set(key_DO, JSON.stringify(value));
-                           }
-                        } else {
-                           filtered[0].sim = [simargsObject];
-                           //console.log("push data: \n", util.inspect(DOWholeDataList, false, null, true));
-                           //MQTT PUB (optional)
-                           let enableOption = checkEnableOption(
-                              DOSIMmqttPubObjList,
-                              DOName,
-                              simulationDataObject.name
-                           );
-                           if (enableOption) {
-                              //console.log("MQTT push : \n", util.inspect(element, false, null, true));
-                              var DOWholeDataListToString =
-                                 JSON.stringify(element);
-                              client.publish(
-                                 "dp_do_data",
-                                 DOWholeDataListToString
-                              ); //send string text!
-                              Rclient.set(key_DO, JSON.stringify(value));
-                           }
-                        }
-                     } else {
-                        //req로 받은  simulation name이 존재하지 않음
-                        res.status(404).send(
-                           "This simulation name does not exist"
-                        );
-                        console.log(
-                           "This simulation name does not exist: ",
-                           util.inspect(element, false, null, true)
-                        );
-                     }
-                  } else {
-                     //DO에 simulation이 생성돼있지 않음
-                     console.log(
-                        "simulation does not exist: ",
-                        util.inspect(element, false, null, true)
-                     );
-                     res.status(404).send("simulation does not exist");
-                  }
-               }
-            });
-         } else {
-            res.status(404).send("DO does not exist");
-         }
-      } else {
-         res.status(404).send("simargs does not exist");
-      }
-   });
-});
-
-function checkEnableOption(DOSIMmqttPubObjList, DOName, simName) {
-   //console.log("DOSIMmqttPubObjList: ", DOSIMmqttPubObjList);
-   //console.log("DOName: ", DOName, "simName: ",simName);
-   return DOSIMmqttPubObjList?.[DOName]?.includes(simName);
-}
+let kafkaConnectServer = "http://10.252.73.37:8083/connectors";
+kafkaConnectServer = url.parse(kafkaConnectServer, true);
 
 let sinkConnectorBody = {
    name: "",
@@ -883,44 +905,26 @@ let sinkConnectorBody = {
    },
 };
 
-// var options = {
-//    hostname: kafkaConnectServer.hostname,
-//    port: kafkaConnectServer.port,
-//    path: kafkaConnectServer.pathname,
-//    headers: {
-//       "Content-Type": "application/json",
-//    },
-//    maxRedirects: 20,
-// };
+var options = {
+   hostname: kafkaConnectServer.hostname,
+   port: kafkaConnectServer.port,
+   path: kafkaConnectServer.pathname,
+   headers: {
+      "Content-Type": "application/json",
+   },
+   maxRedirects: 20,
+};
 
-/**
- * Create Sink Connector
- */
-app.post("/sinkConnector/:DOName", (req, res) => {
-   /**
-    * get simulation list
-    */
-   let simName = "";
-   let simURL = "";
-   DOWholeDataList.forEach((element, index) => {
-      if (element.name == DOName) {
-         console.log(element.simulation);
-         element.simulation.forEach((simulation, index) => {
-            simName = simulation.name;
-            simURL = simulation.simURL;
-         });
-      }
-   });
-   let DOName = req.params.DOName;
-   let connectorName = `${DOName}_${simName}`;
+function CreateSinkConnector(resObject) {
+   const { name, url, arg } = { ...resObject };
+   let connectorName = `${arg.toString}_${name}`;
 
-   requestBody.name = connectorName;
-   requestBody.config["http.api.url"] = simURL;
-   requestBody.config["request.method"] = "POST";
-   requestBody.config["topics"] = DOName;
+   sinkConnectorBody.name = connectorName;
+   sinkConnectorBody.config["http.api.url"] = url;
+   sinkConnectorBody.config["request.method"] = "POST";
+   sinkConnectorBody.config["topics"] = arg.toString();
 
-   //options.method = POST;
-
+   options.method = POST;
    /**
     * Send Request to Kafka Connect Server
     */
@@ -944,31 +948,92 @@ app.post("/sinkConnector/:DOName", (req, res) => {
    });
    request.write(JSON.stringify(sinkConnectorBody));
    request.end();
-});
+}
 
 /**
- * Delete Sink Connector
+ * @method CreateDOStream
+ * @param DOName
+ * @description
+ * Merge sensor streams to DO Stream
+ * 3 partitions
+ * auto offset reset :  earlist
+ * get sensor list from DO Object and merge stream
  */
-app.delete("/sinkConnector/:connectorName", (req, res) => {
-   console.log("delete sink connector");
-});
+function CreateDOksqlStream(DOobject) {
+   console.log("create DO Stream");
+   let DOName = DOobject.name;
+   Options.path = "/ksql";
+   Options.method = POST;
 
-/**
- * Retrieve Sink Connector List
- */
+   // Create DO Stream
+   let createStreamSQL = {
+      ksql: `create stream ${DOName} (sensorname varchar,value varchar) with (kafka_topic='${DOName}', value_format='json', partitions=3);`,
+      streamsProperties: {
+         "ksql.streams.auto.offset.reset": "earliest",
+      },
+   };
 
-app.get("/sinkConnector/list", (req, res) => {
-   console.log("retrieve sink connector list");
-});
+   // Get Sensor List from DO Object
+   let sensorList = DOobject.sensor;
+   console.log(sensorList);
 
-/**
- * Retrieve Sink Connector Status
- */
-app.get("/sinkConnector/status/:connectorName", (req, res) => {
-   console.log("retrieve sink connector status");
-});
+   let insertStreamSQL = {
+      ksql: ``,
+      streamsProperties: {
+         "ksql.streams.auto.offset.reset": "earliest",
+      },
+   };
+   sensorList.forEach((sensor) => {
+      insertStreamSQL.ksql += `INSERT INTO ${DOName} SELECT '${sensor}' AS sensorname, value FROM ${sensor}; `;
+   });
 
-//The 404 Route (ALWAYS Keep this as the last route)
+   //Send Request to Ksqldb Server
+   var request = http.request(Options, function (response) {
+      let fullBody = "";
+
+      response.on("data", function (chunk) {
+         fullBody += chunk;
+      });
+
+      response.on("end", function () {
+         console.log(fullBody);
+         console.log("Insert Sensor Stream to DO");
+
+         var insertRequest = http.request(Options, function (insertResponse) {
+            let fullBody = "";
+
+            insertResponse.on("data", function (chunk) {
+               fullBody += chunk;
+            });
+
+            insertResponse.on("end", function () {
+               console.log(fullBody);
+            });
+
+            insertResponse.on("error", function (error) {
+               console.error(error);
+            });
+         });
+         insertRequest.write(JSON.stringify(insertStreamSQL));
+         insertRequest.end();
+         // res.status(201).json(req.body);
+      });
+
+      response.on("error", function (error) {
+         console.error(error);
+      });
+   });
+   console.log(
+      "JSON.stringify(createStreamSQL): ",
+      JSON.stringify(createStreamSQL),
+      "insertStreamSQL: ",
+      JSON.stringify(insertStreamSQL)
+   );
+   request.write(JSON.stringify(createStreamSQL));
+   request.end();
+}
+
+//====================================The 404 Route (ALWAYS Keep this as the last route)
 app.get("*", function (req, res) {
    res.send("Bad Request (Wrong Url)", 404);
 });

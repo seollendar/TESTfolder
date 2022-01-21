@@ -1,5 +1,16 @@
 {
    "redis": { "ip": "localhost", "port": "6379" },
    "mqtt": { "ip": "localhost", "port": "1883" },
-   "kafka": { "ip": "localhost", "port": "9092" }
+   "kafka": { "ip": "localhost", "port": "9092" },
+   "kafkaHosts": "10.252.73.37:9092, 10.252.73.42:9092, 10.252.73.43:9092",
+   "kafkaHost": "10.252.73.37:9092",
+   "kafkaConnectServer": { "hostname": "", "port": "", "path": "" },
+   "ksqlOptions": {
+      "hostname": "10.252.73.37",
+      "port": 8088,
+      "headers": {
+         "Content-Type": "application/vnd.ksql.v1+json",
+         "Accept": "application/vnd.ksql.v1+json"
+      }
+   }
 }

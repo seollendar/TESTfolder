@@ -9,15 +9,60 @@ app.listen(port, () => {
 });
 
 var redis = require("redis");
-var client = redis.createClient({
+var Rclient = redis.createClient({
    port: config.redis.port,
    host: config.redis.ip,
 });
-client.on("error", function (err) {
+Rclient.on("error", function (err) {
    console.log("Error " + err);
 });
 
 const { tryJSONparse } = require("./lib");
+let Options = config.ksqlOptions;
+const url = require("url");
+const http = require("http");
+const POST = "post";
+const GET = "get";
+const DELETE = "delete";
+const PUT = "put";
+/** kafka **/
+const kafka = require("kafka-node");
+var HighLevelProducer = kafka.HighLevelProducer,
+   client = new kafka.KafkaClient({
+      kafkaHost: config.kafkaHost,
+   }),
+   producer = new HighLevelProducer(client, {
+      partitionerType: 3,
+   });
+producer.on("ready", function () {
+   console.log("Producer is on ready");
+});
+producer.on("error", function (err) {
+   console.log("error", err);
+});
+
+/** MQTT *
+var client = mqtt.connect(`mqtt://${config.mqtt.ip}:${config.mqtt.port}`);
+// var options = { retain:true, qos:1 };
+client.on("connect", function () {
+   console.log("connected!", client.connected);
+});
+client.on("error", (error) => {
+   console.log("Can't connect" + error);
+   process.exit(1);
+});
+client.on("message", (topic, message, packet) => {
+   console.log("topic: " + topic + ", message: " + message);
+});
+*/
+/*
+ * MQTT-subscribe
+client.subscribe("dp_sensor_data", function (err) {
+    if (err) {
+        console.log("dp_sensor subscribe err!", err);
+    }
+});
+ */
 
 /*
  * POST sensor Creation
@@ -42,19 +87,19 @@ app.post("/DigitalConnector/SensorGroup", function (req, res) {
                res.status(500).send("sensor is already exist");
             } else {
                const sensorName = sensorNameObj.name;
-               client.rpush("SensorGroup", sensorName);
+               Rclient.rpush("SensorGroup", sensorName);
                const sensorFields = Object.keys(sensorNameObj);
                for (var i = 0; i < sensorFields.length; i++) {
                   const field = sensorFields[i];
                   if (sensorFields[i] != "name") {
-                     client.hset(
+                     Rclient.hset(
                         sensorNameObj.name,
                         sensorFields[i],
                         JSON.stringify(sensorNameObj[field])
                      );
                   }
                }
-
+               CreateSensorksqlStream(sensorName);
                res.status(200).send("create sensorGroup");
             }
          } else {
@@ -66,6 +111,36 @@ app.post("/DigitalConnector/SensorGroup", function (req, res) {
    });
 });
 
+function CreateSensorksqlStream(sensorName) {
+   Options.path = "/ksql";
+   Options.method = POST;
+
+   let createStreamSQL = {
+      ksql: `create stream ${sensorName} (value varchar) with (kafka_topic='${sensorName}', value_format='json', partitions=3);`,
+      streamsProperties: {
+         "ksql.streams.auto.offset.reset": "earliest",
+      },
+   };
+
+   //Send Request to Ksqldb Server
+   var request = http.request(Options, function (response) {
+      let fullBody = "";
+
+      response.on("data", function (chunk) {
+         fullBody += chunk;
+      });
+
+      response.on("end", function () {
+         console.log(fullBody);
+      });
+
+      response.on("error", function (error) {
+         console.error(error);
+      });
+   });
+   request.write(JSON.stringify(createStreamSQL));
+   request.end();
+}
 /*
  * sensorGroup Retrieve
  */
@@ -85,16 +160,16 @@ app.delete("/DigitalConnector/SensorGroup", async (req, res) => {
       return resLength;
    });
 
-   client.DEL("SensorGroup");
+   Rclient.DEL("SensorGroup");
    res.send({ deleted: resLength });
 });
 //get hash table flield count
 function getListLength_delete() {
    return new Promise((resolve) => {
-      client.lrange("SensorGroup", 0, -1, function (err, keys) {
+      Rclient.lrange("SensorGroup", 0, -1, function (err, keys) {
          if (err) throw err;
          keys.forEach((key) => {
-            client.DEL(key);
+            Rclient.DEL(key);
          });
 
          resolve(keys.length);
@@ -104,7 +179,7 @@ function getListLength_delete() {
 
 function getSensorNameList() {
    return new Promise((resolve) => {
-      client.lrange("SensorGroup", 0, -1, function (err, keys) {
+      Rclient.lrange("SensorGroup", 0, -1, function (err, keys) {
          if (err) throw err;
          resolve(keys);
       });
@@ -152,7 +227,7 @@ app.put("/DigitalConnector/SensorGroup", function (req, res) {
                for (var i = 0; i < sensorFields.length; i++) {
                   const field = sensorFields[i];
                   if (sensorFields[i] != "name") {
-                     client.hset(
+                     Rclient.hset(
                         sensorNameObj.name,
                         sensorFields[i],
                         JSON.stringify(sensorNameObj[field])
@@ -203,6 +278,10 @@ app.post("/DigitalConnector/SensorGroup/:sensorName", function (req, res) {
                   switch (index) {
                      case "kafka":
                         console.log("send to kafka ", sensorNameObj.data);
+                        kafkaProducer(
+                           req.params.sensorName,
+                           JSON.stringify(sensorNameObj)
+                        ); //string
                         break;
                      case "mqtt":
                         console.log("send to mqtt ", sensorNameObj.data);
@@ -218,10 +297,26 @@ app.post("/DigitalConnector/SensorGroup/:sensorName", function (req, res) {
       }
    });
 });
+
+function kafkaProducer(sensorName, sensorValue) {
+   let payload = [
+      {
+         topic: sensorName,
+         key: sensorName,
+         messages: sensorValue, //sensor_data post body
+      },
+   ];
+   console.log("payload: ", payload);
+   producer.send(payload, function (err, data) {
+      if (err) console.log(err);
+      else console.log(data);
+   });
+}
+
 //get hash table fliel value
 function getMessageQueList(sensorName) {
    return new Promise((resolve) => {
-      client.hget(sensorName, "mq", function (err, value) {
+      Rclient.hget(sensorName, "mq", function (err, value) {
          resolve(value);
       });
    });
@@ -242,8 +337,8 @@ app.delete("/DigitalConnector/SensorGroup/:sensorName", async (req, res) => {
       if (!flag) {
          res.status(500).send("Unregistered sensor.");
       } else {
-         client.DEL(req.params.sensorName, redis.print);
-         client.lrem("SensorGroup", -1, req.params.sensorName);
+         Rclient.DEL(req.params.sensorName, redis.print);
+         Rclient.lrem("SensorGroup", -1, req.params.sensorName);
          res.send({ success: 1 });
       }
    }
@@ -275,7 +370,7 @@ app.get("/DigitalConnector/SensorGroup/:sensorName", async (req, res) => {
 //get hash table fliel value
 function getKeys(sensorName) {
    return new Promise((resolve) => {
-      client.hkeys(sensorName, function (err, keys) {
+      Rclient.hkeys(sensorName, function (err, keys) {
          resolve(keys);
       });
    });
@@ -284,9 +379,26 @@ function getKeys(sensorName) {
 //get hash table fliel value
 function getValue(sensorName, key) {
    return new Promise((resolve, reject) => {
-      client.hget(sensorName, key, function (err, value) {
+      Rclient.hget(sensorName, key, function (err, value) {
          if (err) reject(err);
          resolve(JSON.parse(value));
       });
    });
 }
+
+//The 404 Route (ALWAYS Keep this as the last route)
+app.delete("*", function (req, res) {
+   res.send("Bad Request (Wrong Url)", 404);
+});
+
+app.get("*", function (req, res) {
+   res.send("Bad Request (Wrong Url)", 404);
+});
+
+app.post("*", function (req, res) {
+   res.send("Bad Request (Wrong Url)", 404);
+});
+
+app.put("*", function (req, res) {
+   res.send("Bad Request (Wrong Url)", 404);
+});
