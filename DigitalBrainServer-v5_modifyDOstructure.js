@@ -359,6 +359,7 @@ app.delete("/DigitalTwin/service/:serviceName", async (req, res) => {
       if (flag) {
          Rclient.DEL(`service_${req.params.serviceName}`);
          Rclient.LREM("service", -1, req.params.serviceName);
+         deleteSink(req.params.serviceName);
          res.send({ success: 1 });
       } else {
          res.status(200).send("Unregistered service");
@@ -567,6 +568,7 @@ app.delete("/DigitalTwin/simulation/:simulationName", async (req, res) => {
       if (flag) {
          Rclient.DEL(`simulation_${req.params.simulationName}`);
          Rclient.LREM("simulation", -1, req.params.simulationName);
+         deleteSink(req.params.simulationName);
          res.send({ success: 1 });
       } else {
          res.status(200).send("Unregistered simulation");
@@ -576,6 +578,31 @@ app.delete("/DigitalTwin/simulation/:simulationName", async (req, res) => {
       console.log("input value error");
    }
 });
+
+function deleteSink(connectorName) {
+   console.log("Delete Sink Connector");
+   options.method = DELETE;
+   options.path = `/connectors/${connectorName}`;
+   /**
+    * Send Request to Kafka Connect Server
+    */
+   var request = http.request(options, function (response) {
+      let fullBody = "";
+
+      response.on("data", function (chunk) {
+         fullBody += chunk;
+      });
+
+      response.on("end", function () {
+         console.log(fullBody);
+      });
+
+      response.on("error", function (error) {
+         console.error(error);
+      });
+   });
+   request.end();
+}
 
 /*
  * simulation Trigger
@@ -917,9 +944,9 @@ var options = {
 
 function CreateSinkConnector(resObject) {
    const { name, url, arg } = { ...resObject };
-   let connectorName = `${arg.toString}_${name}`;
+   let connectorName = name;
 
-   sinkConnectorBody.name = connectorName;
+   sinkConnectorBody.name = `${connectorName}`;
    sinkConnectorBody.config["http.api.url"] = url;
    sinkConnectorBody.config["request.method"] = "POST";
    sinkConnectorBody.config["topics"] = arg.toString();
@@ -938,12 +965,10 @@ function CreateSinkConnector(resObject) {
       response.on("end", function (chunk) {
          var body = Buffer.concat(chunks);
          console.log(body.toString());
-         res.status(201).json(req.body);
       });
 
       response.on("error", function (error) {
          console.error(error);
-         res.status(400).send("Create Sink Connector Error", error);
       });
    });
    request.write(JSON.stringify(sinkConnectorBody));

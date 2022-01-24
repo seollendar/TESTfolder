@@ -100,6 +100,7 @@ app.post("/DigitalConnector/SensorGroup", function (req, res) {
                   }
                }
                CreateSensorksqlStream(sensorName);
+
                res.status(200).send("create sensorGroup");
             }
          } else {
@@ -132,6 +133,12 @@ function CreateSensorksqlStream(sensorName) {
 
       response.on("end", function () {
          console.log(fullBody);
+      });
+
+      client.refreshMetadata([sensorName], (err) => {
+         if (err) {
+            console.warn("Error refreshing kafka metadata", err);
+         }
       });
 
       response.on("error", function (error) {
@@ -278,9 +285,10 @@ app.post("/DigitalConnector/SensorGroup/:sensorName", function (req, res) {
                   switch (index) {
                      case "kafka":
                         console.log("send to kafka ", sensorNameObj.data);
+                        const valueObjectMessage = { value: sensorNameObj };
                         kafkaProducer(
                            req.params.sensorName,
-                           JSON.stringify(sensorNameObj)
+                           JSON.stringify(valueObjectMessage)
                         ); //string
                         break;
                      case "mqtt":
