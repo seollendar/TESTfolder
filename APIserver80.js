@@ -655,6 +655,9 @@ app.get("/timeseries/:deviceID/:containerName/latest", (req, res) => {
  * localhost:7979/timeseries/:deviceID/:containerName/period?from={startDateTime}&to={endDateTime}
  */
 app.get("/timeseries/:deviceID/:containerName/period", (req, res) => {
+   var returnValues = {};
+   var value = {};
+   var values = [];
    res.set({ "access-control-allow-origin": "*" });
    if (
       req.params.deviceID &&
@@ -665,40 +668,77 @@ app.get("/timeseries/:deviceID/:containerName/period", (req, res) => {
       let { deviceID, containerName } = req.params;
       var startdatetime = moment(req.query.from) / 0.000001;
       var enddatetime = moment(req.query.to) / 0.000001;
-      sql =
-         `select * from ` +
-         deviceID +
-         ` where time >= ` +
-         startdatetime +
-         ` and time <= ` +
-         enddatetime +
-         ` and container = '` +
-         containerName +
-         `'`;
 
-      console.log(sql);
+      getCOUNTsql = `select count(*) from ${deviceID} where time >= ${startdatetime} and time <= ${enddatetime} and container = '${containerName}'`;
+
+      console.log(getCOUNTsql);
       influx
-         .query(sql)
+         .query(getCOUNTsql)
          .then((result) => {
             if (result[0]) {
-               var returnValues = {};
-               var value = {};
-               var values = [];
-               for (var index = 0; index < result.length; index++) {
-                  var time = moment(result[index].time).format(
-                     "YYYYMMDDTHHmmss"
-                  );
-                  delete result[index].time;
-                  delete result[index].container;
-                  value = result[index];
-                  values.push({ time, value });
-               }
+               console.log(">>> ", result[0].count_latitude);
+               // count 가 특정 수보다 작으면 select * query하여 응답
+               if (result[0].count_latitude < 30) {
+                  getPOINTsql = `select * from ${deviceID} where time >= ${startdatetime} and time <= ${enddatetime} and container = '${containerName}'`;
+                  console.log(getPOINTsql);
+                  influx
+                     .query(getPOINTsql)
+                     .then((result) => {
+                        for (var index = 0; index < result.length; index++) {
+                           var time = moment(result[index].time).format(
+                              "YYYYMMDDTHHmmss"
+                           );
+                           delete result[index].time;
+                           delete result[index].container;
+                           value = result[index];
+                           values.push({ time, value });
+                        }
 
-               returnValues["deviceID"] = deviceID;
-               returnValues["container"] = containerName;
-               returnValues["values"] = values;
-               res.send(returnValues);
-               console.log(">>> 200 OK  (period)");
+                        returnValues["deviceID"] = deviceID;
+                        returnValues["container"] = containerName;
+                        returnValues["values"] = values;
+                        res.send(returnValues);
+                        console.log(">>> 200 OK  (period)");
+                     })
+                     .catch((err) => {
+                        res.status(500).send("Internal Server Error");
+                        console.log(">>> 500 Internal Server Error", err);
+                     });
+                  // count가 특정 기준 보다 많으면
+               } else {
+                  const limit = result[0].count_latitude / 1000;
+                  sql = `select first(*) from ${deviceID} where time >= ${startdatetime} and time <= ${enddatetime} and container = '${containerName}' group by time(${limit}s)`;
+
+                  console.log(sql);
+                  influx
+                     .query(sql)
+                     .then((result) => {
+                        for (var index = 0; index < result.length; index++) {
+                           if (result[index].first_latitude) {
+                              var time = moment(result[index].time).format(
+                                 "YYYYMMDDTHHmmss"
+                              );
+                              delete result[index].time;
+                              delete result[index].container;
+                              value = {
+                                 latitude: result[index].first_latitude,
+                                 longitude: result[index].first_longitude,
+                              };
+                              values.push({ time, value });
+                           }
+                        }
+
+                        returnValues["deviceID"] = deviceID;
+                        returnValues["container"] = containerName;
+                        returnValues["values"] = values;
+                        res.send(returnValues);
+                        console.log(">>> 200 OK  (period)");
+                     })
+                     .catch((err) => {
+                        res.status(500).send("Internal Server Error");
+                        console.log(">>> 500 Internal Server Error", err);
+                     });
+               }
             } else {
                //if no response
                res.send("{}");

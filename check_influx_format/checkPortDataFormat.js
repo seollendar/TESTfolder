@@ -18,7 +18,7 @@ async function getAllAEContainer() {
 }
 
 async function getRow({ ae, container }) {
-   const sql = `select * from ${ae} where "container"='${container}' limit 1`;
+   const sql = `select * from ${ae} where "container"='${container}' order by desc limit 1`;
 
    const [result] = await iQuery(sql);
    return result;
@@ -54,7 +54,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -78,7 +78,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -102,7 +102,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -124,7 +124,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -148,7 +148,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -172,7 +172,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -196,7 +196,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -218,7 +218,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -242,7 +242,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -266,7 +266,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -290,7 +290,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -314,7 +314,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -336,7 +336,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -358,7 +358,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -380,7 +380,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -402,7 +402,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
@@ -426,7 +426,7 @@ async function main() {
                      );
                   } else if (row[key] === " ") {
                      log.push(
-                        `${index.ae} - ${index.container} - ${key} - not exist`
+                        `${index.ae} - ${index.container} - ${key} - " " exist`
                      );
                   }
                }
