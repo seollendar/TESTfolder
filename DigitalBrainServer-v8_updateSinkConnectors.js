@@ -23,9 +23,6 @@ Rclient.on("error", function (error) {
 
 const client = mqtt.connect(`mqtt://${config.mqtt.ip}:${config.mqtt.port}`);
 // var options = { retain:true, qos:1 }; //client.publish(topic, dataToString, options);
-let DONameList = [];
-let DOWholeDataList = [];
-let DOSIMmqttPubObjList = {}; //{'DO1':['sim1', 'sim2'], 'DO2': []}
 
 client.on("connect", function () {
    console.log("connected!", client.connected);
@@ -476,7 +473,7 @@ app.post("/DigitalTwin/service/trigger", function (req, res) {
                   );
                   resObject[key] = value;
                }
-               CreateSinkConnector(resObject);
+               CreateServiceSinkConnector(resObject);
                res.status(200).send(resObject);
             } else {
                res.status(200).send("Unregistered service");
@@ -706,7 +703,7 @@ app.post("/DigitalTwin/simulationRTtrigger/:simName", function (req, res) {
                `createRTSink: `,
                util.inspect(resObject, false, null, true)
             );
-            //CreateSinkConnector(resObject);
+            CreateSimulationSinkConnector(resObject);
             res.status(200).send(resObject);
          } else {
             res.status(200).send("Unregistered simulation");
@@ -1041,21 +1038,8 @@ const GET = "get";
 const DELETE = "delete";
 const PUT = "put";
 
-let kafkaConnectServer = "http://10.252.73.37:8083/connectors";
+let kafkaConnectServer = "http://10.252.73.37:8083/connectors"; //create connector address
 kafkaConnectServer = url.parse(kafkaConnectServer, true);
-
-let sinkConnectorBody = {
-   name: "",
-   config: {
-      "connector.class": "uk.co.threefi.connect.http.HttpSinkConnector",
-      "tasks.max": "1",
-      "request.method": "",
-      headers: "Content-Type:application/json|Accept:application/json",
-      "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-      "value.converter": "org.apache.kafka.connect.storage.StringConverter",
-   },
-};
-
 var options = {
    hostname: kafkaConnectServer.hostname,
    port: kafkaConnectServer.port,
@@ -1064,18 +1048,34 @@ var options = {
       "Content-Type": "application/json",
    },
    maxRedirects: 20,
+   method: POST,
 };
 
-function CreateSinkConnector(resObject) {
-   const { name, url, arg } = { ...resObject };
-   let connectorName = name;
-   console.log("resObject", resObject);
-   sinkConnectorBody.name = `${connectorName}`;
-   sinkConnectorBody.config["http.api.url"] = url;
-   sinkConnectorBody.config["request.method"] = "POST";
-   sinkConnectorBody.config["topics"] = arg.toString();
+/**
+ * CreateSinkConnector => service, simulation
+ * MQTT, HTTP
+ */
 
-   options.method = POST;
+async function CreateServiceSinkConnector(resObject) {
+   let sinkConnectorBody;
+   const { name, url, DO_arg, SIM_arg } = { ...resObject };
+   console.log("resObject", resObject);
+   let splitURLsink = url.split(":");
+   switch (splitURLsink[0]) {
+      case "http":
+         sinkConnectorBody = await ServiceHttpSinkConnector(resObject);
+         console.log("http sink");
+         break;
+      case "mqtt":
+         sinkConnectorBody = await ServiceMQTTSinkConnector(
+            resObject,
+            splitURLsink
+         );
+         console.log("mqtt sink");
+         break;
+      default:
+         console.log(`out of ${splitURLsink[0]}`);
+   }
 
    console.log("sinkConnectorBody\n", sinkConnectorBody);
    /**
@@ -1101,16 +1101,107 @@ function CreateSinkConnector(resObject) {
    request.end();
 }
 
-function CreateMQTTSinkConnector(resObject) {
-   const { name, url, arg } = { ...resObject };
-   let connectorName = name;
-   console.log("resObject", resObject);
-   sinkConnectorBody.name = `${connectorName}`;
-   sinkConnectorBody.config["http.api.url"] = url;
-   sinkConnectorBody.config["request.method"] = "POST";
-   sinkConnectorBody.config["topics"] = arg.toString();
+function ServiceHttpSinkConnector(resObject) {
+   let topicArg = resObject.arg;
+   let topics = "";
+   for (i in topicArg) {
+      topics += topicArg[i];
+      if (i != topicArg.length - 1) {
+         topics += ",";
+      }
+   }
+   //console.log(topics);
 
-   options.method = POST;
+   let sinkConnectorBody = {
+      name: resObject.name,
+      config: {
+         "connector.class": "uk.co.threefi.connect.http.HttpSinkConnector",
+         "tasks.max": "1",
+         "request.method": "",
+         headers: "Content-Type:application/json|Accept:application/json",
+         "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+         "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+         "response.topic": "",
+         "http.api.url": resObject.url,
+         "request.method": "POST",
+         topics: topics,
+         "response.topic": `Service_${resObject.name}`,
+      },
+   };
+
+   return sinkConnectorBody;
+}
+
+function ServiceMQTTSinkConnector(resObject, splitURLsink) {
+   const DOs = Object.keys(resObject.DO_arg); //[ 'DO1', 'DO2' ]
+   const SIMs = Object.keys(resObject.SIM_arg);
+   let DO_DOs = DOs.map((d) => "DO_" + d);
+   let SIM_SIMs = SIMs.map((s) => "SIM_" + s);
+   let DO_SIM_arr = DO_DOs.concat(SIM_SIMs);
+   //console.log(DO_SIM_arr);
+
+   let topics = "";
+   for (i in DO_SIM_arr) {
+      topics += DO_SIM_arr[i];
+      if (i != DO_SIM_arr.length - 1) {
+         topics += ",";
+      }
+   }
+   //console.log(topics);
+
+   let SQL = "";
+   for (i in DO_DOs) {
+      SQL += `INSERT INTO /mqtt/data SELECT * FROM ${DO_DOs[i]};`;
+   }
+
+   for (i in SIM_SIMs) {
+      SQL += `INSERT INTO /mqtt/simulation SELECT * FROM ${SIM_SIMs[i]};`;
+   }
+
+   let sinkConnectorBody = {
+      name: resObject.name,
+      config: {
+         "connector.class":
+            "com.datamountaineer.streamreactor.connect.mqtt.sink.MqttSinkConnector",
+         "tasks.max": "1",
+         topics: topics,
+         "connect.mqtt.hosts": `tcp:${splitURLsink[1]}:${splitURLsink[2]}`,
+         "connect.mqtt.clean": "true",
+         "connect.mqtt.timeout": "1000",
+         "connect.mqtt.keep.alive": "1000",
+         "connect.mqtt.service.quality": "1",
+         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+         "key.converter.schemas.enable": "false",
+         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+         "value.converter.schemas.enable": "false",
+         "connect.mqtt.kcql": SQL,
+      },
+   };
+
+   //console.log("sinkConnectorBody\n", sinkConnectorBody);
+   return sinkConnectorBody;
+}
+
+async function CreateSimulationSinkConnector(resObject) {
+   let sinkConnectorBody;
+   const { name, url, arg } = { ...resObject };
+   console.log("resObject", resObject);
+   let splitURLsink = url.split(":");
+   switch (splitURLsink[0]) {
+      case "http":
+         sinkConnectorBody = await SimulationHttpSinkConnector(resObject);
+         console.log("http sink");
+         break;
+      case "mqtt":
+         sinkConnectorBody = await SimulationMQTTSinkConnector(
+            resObject,
+            splitURLsink
+         );
+         console.log("mqtt sink");
+         break;
+      default:
+         console.log(`out of ${splitURLsink[0]}`);
+   }
 
    console.log("sinkConnectorBody\n", sinkConnectorBody);
    /**
@@ -1134,6 +1225,77 @@ function CreateMQTTSinkConnector(resObject) {
    });
    request.write(JSON.stringify(sinkConnectorBody));
    request.end();
+}
+
+function SimulationHttpSinkConnector(resObject) {
+   const DOs = Object.keys(resObject.arg); //[ 'DO1', 'DO2' ]
+   let DO_DOs = DOs.map((d) => "DO_" + d);
+
+   let topics = "";
+   for (i in DO_DOs) {
+      topics += DO_DOs[i];
+      if (i != DO_DOs.length - 1) {
+         topics += ",";
+      }
+   }
+   console.log(topics);
+
+   let sinkConnectorBody = {
+      name: resObject.name,
+      config: {
+         "connector.class": "uk.co.threefi.connect.http.HttpSinkConnector",
+         "tasks.max": "1",
+         "request.method": "",
+         headers: "Content-Type:application/json|Accept:application/json",
+         "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+         "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+         "response.topic": "",
+         "http.api.url": resObject.url,
+         "request.method": "POST",
+         topics: topics,
+         "response.topic": `RES_SIM_${resObject.name}`,
+      },
+   };
+
+   return sinkConnectorBody;
+}
+
+function SimulationMQTTSinkConnector(resObject, splitURLsink) {
+   const DOs = Object.keys(resObject.arg); //[ 'DO1', 'DO2' ]
+   let DO_DOs = DOs.map((d) => "DO_" + d);
+
+   let topics = "";
+   for (i in DO_DOs) {
+      topics += DO_DOs[i];
+      if (i != DO_DOs.length - 1) {
+         topics += ",";
+      }
+   }
+   console.log(topics);
+   let SQL = "";
+   for (i in DO_DOs) {
+      SQL += `INSERT INTO /mqtt/data SELECT * FROM ${DO_DOs[i]};`;
+   }
+   let sinkConnectorBody = {
+      name: resObject.name,
+      config: {
+         "connector.class":
+            "com.datamountaineer.streamreactor.connect.mqtt.sink.MqttSinkConnector",
+         "tasks.max": "1",
+         topics: topics,
+         "connect.mqtt.hosts": `tcp:${splitURLsink[1]}:${splitURLsink[2]}`,
+         "connect.mqtt.clean": "true",
+         "connect.mqtt.timeout": "1000",
+         "connect.mqtt.keep.alive": "1000",
+         "connect.mqtt.service.quality": "1",
+         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+         "key.converter.schemas.enable": "false",
+         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+         "value.converter.schemas.enable": "false",
+         "connect.mqtt.kcql": SQL,
+      },
+   };
+   return sinkConnectorBody;
 }
 
 //====================================The 404 Route (ALWAYS Keep this as the last route)

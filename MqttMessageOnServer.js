@@ -1,5 +1,5 @@
 const mqtt = require("mqtt");
-var client = mqtt.connect("mqtt://localhost:1883");
+var client = mqtt.connect("mqtt://203.254.173.175:1883");
 
 client.on("connect", function () {
    console.log("connected!", client.connected);
@@ -12,7 +12,7 @@ client.on("error", (error) => {
 /*
  * MQTT-subscribe
  */
-client.subscribe("predict", function (err) {
+client.subscribe("mqt", function (err) {
    if (!err) {
       console.log("sub connected!");
    }
