@@ -17,6 +17,18 @@ client.subscribe("mqt", function (err) {
       console.log("sub connected!");
    }
 });
+
+client.subscribe("/mqtt/data", function (err) {
+   if (!err) {
+      console.log("sub connected!");
+   }
+});
+
+client.subscribe("/mqtt/simulation", function (err) {
+   if (!err) {
+      console.log("sub connected!");
+   }
+});
 /*
  * MQTT-Message ON
  */

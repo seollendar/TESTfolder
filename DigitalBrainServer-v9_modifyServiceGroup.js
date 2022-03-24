@@ -274,7 +274,7 @@ app.put("/DigitalTwin/DO", async (req, res) => {
 /*
  * service Creation
  */
-app.post("/DigitalTwin/service", function (req, res) {
+app.post("/DigitalTwin/serviceGroup", function (req, res) {
    let fullBody = "",
       DataObject = "";
    req.on("data", function (chunk) {
@@ -284,7 +284,7 @@ app.post("/DigitalTwin/service", function (req, res) {
    req.on("end", async function () {
       if (tryJSONparse(fullBody)) {
          DataObject = tryJSONparse(fullBody);
-         if (DataObject?.name && DataObject?.arg && DataObject?.url) {
+         if (DataObject?.name && DataObject?.url) {
             const flag = await checkNameExist(DataObject.name, "service").then(
                function (flag) {
                   return flag;
@@ -318,7 +318,7 @@ app.post("/DigitalTwin/service", function (req, res) {
 /*
  * service Update
  */
-app.put("/DigitalTwin/service", function (req, res) {
+app.put("/DigitalTwin/serviceGroup", function (req, res) {
    let fullBody = "",
       DataObject = "";
    req.on("data", function (chunk) {
@@ -328,12 +328,7 @@ app.put("/DigitalTwin/service", function (req, res) {
    req.on("end", async function () {
       if (tryJSONparse(fullBody)) {
          DataObject = tryJSONparse(fullBody);
-         if (
-            DataObject?.name &&
-            DataObject?.arg &&
-            DataObject.arg.length > 0 &&
-            DataObject?.url
-         ) {
+         if (DataObject?.name && DataObject?.url) {
             const flag = await checkNameExist(DataObject.name, "service").then(
                function (flag) {
                   return flag;
@@ -382,7 +377,7 @@ function getValue(Name, key) {
 /*
  * service Retrieve
  */
-app.get("/DigitalTwin/service/:serviceName", async (req, res) => {
+app.get("/DigitalTwin/serviceGroup/:serviceName", async (req, res) => {
    if (req.params.serviceName) {
       let serviceName = req.params.serviceName;
       const flag = await checkNameExist(serviceName, "service").then(function (
@@ -418,7 +413,7 @@ app.get("/DigitalTwin/service/:serviceName", async (req, res) => {
 /*
  * service delete
  */
-app.delete("/DigitalTwin/service/:serviceName", async (req, res) => {
+app.delete("/DigitalTwin/serviceGroup/:serviceName", async (req, res) => {
    if (req.params.serviceName) {
       let serviceName = req.params.serviceName;
       const flag = await checkNameExist(serviceName, "service").then(function (
@@ -443,46 +438,39 @@ app.delete("/DigitalTwin/service/:serviceName", async (req, res) => {
 /*
  * service Trigger
  */
-app.post("/DigitalTwin/service/trigger", function (req, res) {
+app.post("/DigitalTwin/service/trigger/:serviceName", function (req, res) {
    let fullBody = "",
-      DataObject = "",
+      serviceName = "",
       resObject = {};
    req.on("data", function (chunk) {
       fullBody += chunk;
    });
 
    req.on("end", async function () {
-      if (tryJSONparse(fullBody)) {
-         DataObject = tryJSONparse(fullBody);
-         if (DataObject?.name) {
-            const flag = await checkNameExist(DataObject.name, "service").then(
-               function (flag) {
-                  return flag;
-               }
-            );
-            if (flag) {
-               const keys = await getKeys(`service_${DataObject.name}`).then(
-                  function (keys) {
-                     return keys;
-                  }
-               );
-               for (let key of keys) {
-                  const value = await getValue(
-                     `service_${DataObject.name}`,
-                     key
-                  );
-                  resObject[key] = value;
-               }
-               CreateServiceSinkConnector(resObject);
-               res.status(200).send(resObject);
-            } else {
-               res.status(200).send("Unregistered service");
+      if (req.params.serviceName) {
+         serviceName = req.params.serviceName;
+         const flag = await checkNameExist(serviceName, "service").then(
+            function (flag) {
+               return flag;
             }
+         );
+         if (flag) {
+            const keys = await getKeys(`service_${serviceName}`).then(function (
+               keys
+            ) {
+               return keys;
+            });
+            for (let key of keys) {
+               const value = await getValue(`service_${serviceName}`, key);
+               resObject[key] = value;
+            }
+            CreateServiceSinkConnector(resObject);
+            res.status(200).send(resObject);
          } else {
-            res.status(500).send("please check mandatory field");
+            res.status(412).send("Unregistered service");
          }
       } else {
-         res.status(500).send("is not a json structure");
+         res.status(500).send("please check serviceName parameter");
       }
    });
 });

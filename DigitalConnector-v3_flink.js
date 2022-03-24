@@ -44,7 +44,7 @@ producer.on("error", function (err) {
 
 let SESSIONID = "";
 const gwOptions = {
-   hostname: "10.252.73.37",
+   hostname: "10.252.73.27",
    port: 8087,
 };
 /**
@@ -191,6 +191,12 @@ app.post("/DigitalConnector/SensorGroup", function (req, res) {
                }
                create_flink_sensor_table(sensorName);
                res.status(200).send("create sensorGroup");
+               //BrokerNotAvailableError: Could not find the leader
+               client.refreshMetadata([sensorNameObj.name], (err) => {
+                  if (err) {
+                     console.warn("Error refreshing kafka metadata", err);
+                  }
+               });
             }
          } else {
             res.status(500).send("please check mandatory field");
