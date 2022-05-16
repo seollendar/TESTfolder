@@ -59,7 +59,7 @@ function create_flink_DO_table(DOobject) {
    console.log(sensorList);
 
    if (sensorList.length == 1) {
-      createStreamSQL.statement = `CREATE TABLE ${DOName}(\`sensor_id\` STRING,\`sensor_value\` STRING, \`rowtime\` TIMESTAMP(3)) WITH ('connector' = 'kafka', 'topic' = 'DO_${DOName}','properties.bootstrap.servers' = '${config.kafkaHost}', 'format'='json')`;
+      createStreamSQL.statement = `CREATE TABLE ${DOName}(\`sensor_id\` STRING,\`sensor_value\` STRING, \`sensor_rowtime\` TIMESTAMP(3)) WITH ('connector' = 'kafka', 'topic' = 'DO_${DOName}','properties.bootstrap.servers' = '${config.kafkaHost}', 'format'='json')`;
    } else {
       createStreamSQL.statement = `CREATE TABLE ${DOName} (tmpA BIGINT, `;
 
@@ -77,12 +77,11 @@ function create_flink_DO_table(DOobject) {
    };
 
    if (sensorList.length == 1) {
-      insertTableSQL.statement += `sensor_id, sensor_value, rowtime FROM ${sensor}`;
+      insertTableSQL.statement += `sensor_id, sensor_value, sensor_rowtime FROM ${sensor}`;
    } else {
       insertTableSQL.statement += `${sensorList[0]}.tmp, `;
 
       for (i = 0; i < sensorList.length; i++) {
-         console.log(i);
          insertTableSQL.statement += `${sensorList[i]}.sensor_id, ${sensorList[i]}.sensor_value, ${sensorList[i]}.sensor_rowtime `;
          if (i != sensorList.length - 1) {
             insertTableSQL.statement += `, `;
@@ -1057,7 +1056,7 @@ const GET = "get";
 const DELETE = "delete";
 const PUT = "put";
 
-let kafkaConnectServer = "http://10.252.73.37:8083/connectors"; //create connector address
+let kafkaConnectServer = `http://${config.kafkaconnectHost}/connectors`; //create connector address
 kafkaConnectServer = url.parse(kafkaConnectServer, true);
 var options = {
    hostname: kafkaConnectServer.hostname,

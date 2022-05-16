@@ -109,7 +109,7 @@ function create_flink_sensor_table(sensorName) {
    gwOptions.method = POST;
 
    let createTableSQL = {
-      statement: `CREATE TABLE ${sensorName}(\`tmp\` BIGINT, \`sensor_id\` STRING, \`sensor_value\` STRING, \`rowtime\` TIMESTAMP(3),  WATERMARK FOR rowtime AS rowtime, PRIMARY KEY (tmp) NOT ENFORCED) WITH ('connector' = 'upsert-kafka', 'topic' = '${sensorName}', 'properties.bootstrap.servers' = '${config.kafkaHost}', 'key.format' = 'json','value.format' = 'json')`,
+      statement: `CREATE TABLE ${sensorName}(\`tmp\` BIGINT, \`sensor_id\` STRING, \`sensor_value\` BIGINT, \`sensor_rowtime\` TIMESTAMP(3) METADATA FROM 'timestamp',  WATERMARK FOR sensor_rowtime AS sensor_rowtime, PRIMARY KEY (tmp) NOT ENFORCED) WITH ('connector' = 'upsert-kafka', 'topic' = '${sensorName}', 'properties.bootstrap.servers' = '${config.kafkaHost}', 'key.format' = 'json','value.format' = 'json')`,
    };
 
    //Send Request to sql-gateway Server
@@ -344,9 +344,11 @@ app.post("/DigitalConnector/SensorGroup/:sensorName", function (req, res) {
                   switch (index) {
                      case "kafka":
                         console.log("send to kafka ", sensorNameObj.data);
-                        const valueObjectMessage = { con: sensorNameObj.data };
+                        const valueObjectMessage = { tmp: 1, sensor_id: req.params.sensorName, sensor_value: sensorNameObj.data };
+                        const kafkaKey = {tmp: 1};
                         kafkaProducer(
                            req.params.sensorName,
+                           JSON.stringify(kafkaKey),
                            JSON.stringify(valueObjectMessage)
                         ); //string
                         break;
@@ -365,11 +367,11 @@ app.post("/DigitalConnector/SensorGroup/:sensorName", function (req, res) {
    });
 });
 
-function kafkaProducer(sensorName, sensorValue) {
+function kafkaProducer(sensorName, kafkaKey, sensorValue) {
    let payload = [
       {
          topic: sensorName,
-         key: sensorName,
+         key: kafkaKey,
          messages: sensorValue, //sensor_data post body
       },
    ];
