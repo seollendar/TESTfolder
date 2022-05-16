@@ -1,0 +1,11 @@
+./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --reset-offsets --topic test-bash --group test-group --to-datetime 2022-04-14T08:09:00.000 --execute
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test-bash --from-beginning
+
+influx write -b importBPT -f ‪C:\workspace\BPT-Data-sftp-get\kriso-export.csv -f C:\workspace\BPT-Data-sftp-get\S01228451550-export.csv
+
+python csv-to-influxdb.py --dbname SmartPortData --input kriso.csv --tagcolumns container --fieldcolumns truck_arrive
+
+influx -precision 'rfc3339' -database 'Dabtabase_name' -execute 'SELECT * FROM table_name' -format csv > test.csv
+
+noDataLog.push

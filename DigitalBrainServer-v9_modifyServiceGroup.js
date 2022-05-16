@@ -34,7 +34,7 @@ client.on("error", (error) => {
 
 let SESSIONID = "";
 const gwOptions = {
-   hostname: "10.252.73.27",
+   hostname: "172.22.173.101",
    port: 8087,
 };
 app.post("/flink/:session", (req, res) => {

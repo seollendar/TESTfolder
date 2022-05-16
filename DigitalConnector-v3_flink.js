@@ -44,7 +44,7 @@ producer.on("error", function (err) {
 
 let SESSIONID = "";
 const gwOptions = {
-   hostname: "10.252.73.27",
+   hostname: "172.22.173.101",
    port: 8087,
 };
 /**
@@ -77,7 +77,7 @@ function create_session() {
 
          var config = {
             method: "post",
-            url: `http://203.254.173.175:1005/flink/${SESSIONID}`,
+            url: `http://localhost:1005/flink/${SESSIONID}`,
             headers: {
                Accept: "application/json",
                "Content-Type": "application/json;ty=4",
@@ -109,7 +109,7 @@ function create_flink_sensor_table(sensorName) {
    gwOptions.method = POST;
 
    let createTableSQL = {
-      statement: `CREATE TABLE ${sensorName}(\`con\` STRING, \`rowtime\` TIMESTAMP(3) METADATA FROM 'timestamp') WITH ('connector' = 'kafka', 'topic' = '${sensorName}', 'scan.startup.mode' = 'earliest-offset', 'properties.bootstrap.servers' = '${config.kafkaHosts}', 'format'='json')`,
+      statement: `CREATE TABLE ${sensorName}(\`con\` STRING, \`rowtime\` TIMESTAMP(3) METADATA FROM 'timestamp') WITH ('connector' = 'kafka', 'topic' = '${sensorName}', 'scan.startup.mode' = 'earliest-offset', 'properties.bootstrap.servers' = '${config.kafkaHost}', 'format'='json')`,
    };
 
    //Send Request to sql-gateway Server
