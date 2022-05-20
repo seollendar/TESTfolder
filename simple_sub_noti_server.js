@@ -3,7 +3,7 @@ const app = express();
 
 const port = 1203;
 app.listen(port, () =>
-   console.log(`Example app listening at http://203.254.173.175:${port}`)
+   console.log(`Example app listening at ${port}`)
 );
 
 app.post("*", (req, res) => {
